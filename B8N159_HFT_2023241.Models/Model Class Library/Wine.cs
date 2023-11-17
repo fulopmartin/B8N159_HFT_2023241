@@ -20,9 +20,10 @@ namespace B8N159_HFT_2023241.Models
 
         public int WineryId { get; set; }
         public int AwardId { get; set; }
-
-        public virtual Winery Winery { get; private set; }
-        public virtual Award Award { get; private set; }
+        [NotMapped]
+        public virtual Winery Winery { get; set; }
+        [NotMapped]
+        public virtual ICollection<Award> Awards { get; set; }
         
     }
 }
