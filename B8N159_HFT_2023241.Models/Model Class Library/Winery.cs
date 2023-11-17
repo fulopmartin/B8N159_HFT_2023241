@@ -16,12 +16,15 @@ namespace B8N159_HFT_2023241.Models
         public int WineryId { get; set; }
         public string Name { get; set; }
         public int Zipcode { get; set; }
+        [NotMapped]
         public virtual ICollection<Wine> Wines { get; set; }
 
-        public Winery()
+        public Winery(int wineryId, string name, int zipcode)
         {
-            this.Wines = new HashSet<Wine>();
+            WineryId = wineryId;
+            Name = name;
+            Zipcode = zipcode;
+            Wines = new HashSet<Wine>();
         }
-
     }
 }
