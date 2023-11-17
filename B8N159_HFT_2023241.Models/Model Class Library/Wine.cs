@@ -30,11 +30,12 @@ namespace B8N159_HFT_2023241.Models
         [NotMapped]
         public virtual ICollection<Award> Awards { get; set; }
 
-        public Wine(int wineId, string name, int year, int price, int wineryId)
+        public Wine(int wineId, string name, int year,WineType type, int price, int wineryId)
         {
             WineId = wineId;
             Name = name;
             Year = year;
+            Type = type;
             Price = price;
             WineryId = wineryId;
             Awards = new HashSet<Award>();
