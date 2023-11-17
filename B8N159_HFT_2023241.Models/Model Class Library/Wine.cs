@@ -8,22 +8,36 @@ using System.Threading.Tasks;
 
 namespace B8N159_HFT_2023241.Models
 {
+    public enum WineType
+    {
+        Vörös = 1,
+        Fehér = 2,
+        Rozé = 3
+    };
     public class Wine
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int WineId { get; set; }
-
         public string Name { get; set; }
         public int Year { get; set; }
+        public WineType Type { get; set; }
         public int Price { get; set; }
-
-        public int WineryId { get; set; }
-        public int AwardId { get; set; }
+        //foreign key
+        public int WineryId { get; set; }        
         [NotMapped]
         public virtual Winery Winery { get; set; }
         [NotMapped]
         public virtual ICollection<Award> Awards { get; set; }
-        
+
+        public Wine(int wineId, string name, int year, int price, int wineryId)
+        {
+            WineId = wineId;
+            Name = name;
+            Year = year;
+            Price = price;
+            WineryId = wineryId;
+            Awards = new HashSet<Award>();
+        }
     }
 }
