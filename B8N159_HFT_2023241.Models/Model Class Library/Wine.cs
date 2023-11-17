@@ -23,6 +23,7 @@ namespace B8N159_HFT_2023241.Models
         public int Year { get; set; }
         public WineType Type { get; set; }
         public int Price { get; set; }
+        public bool IsCheap { get; set; }
         //foreign key
         public int WineryId { get; set; }        
         [NotMapped]
@@ -37,6 +38,14 @@ namespace B8N159_HFT_2023241.Models
             Year = year;
             Type = type;
             Price = price;
+            if(price < 2000)
+            {
+                IsCheap = true;
+            }
+            else
+            {
+                IsCheap = false;
+            }
             WineryId = wineryId;
             Awards = new HashSet<Award>();
         }
