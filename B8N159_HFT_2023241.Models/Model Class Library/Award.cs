@@ -17,5 +17,12 @@ namespace B8N159_HFT_2023241.Models
         public string AwardName { get; set; }
         [NotMapped]
         public virtual Wine Wine { get; set; }
+
+        public Award(int awardId, int awardYear, string awardName)
+        {
+            AwardId = awardId;
+            AwardYear = awardYear;
+            AwardName = awardName;
+        }
     }
 }
