@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace B8N159_HFT_2023241.Repository
 {
-    internal class WineryDbContext : DbContext
+    public class WineryDbContext : DbContext
     {
 
         public DbSet<Winery> Wineries { get; set; }
@@ -144,7 +144,7 @@ namespace B8N159_HFT_2023241.Repository
 
                 //frittmann winery
                 new Award(20,2018,"Le Mondial du Rosé",17,false),
-                new Award(20,2017,"XII. Magyarországi Újbor verseny",17,true),
+                new Award(21,2017,"XII. Magyarországi Újbor verseny",17,true),
 
                 new Award(22,2018,"Külügyminisztérium Borválogatása",24,true),
                 
@@ -157,9 +157,9 @@ namespace B8N159_HFT_2023241.Repository
                 new Award(26,2022,"Az Országház Bora Kadarka",32,true),
 
                 //takler winery
-                new Award(26,2022,"Az Országház Bora Bikavér",33,true),
-                new Award(27,2023,"Országos Borverseny",33,true),
-                new Award(27,2023,"Berliner Wein Trophy",33,true),
+                new Award(27,2022,"Az Országház Bora Bikavér",33,true),
+                new Award(28,2023,"Országos Borverseny",33,true),
+                new Award(29,2023,"Berliner Wein Trophy",33,true),
 
             };
             modelBuilder.Entity<Award>().HasData(awards);
