@@ -1,5 +1,6 @@
 ﻿using B8N159_HFT_2023241.Models;
 using B8N159_HFT_2023241.Repository;
+using Castle.Core.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,17 @@ namespace B8N159_HFT_2023241.Logic
             this.repo.Update(item);
         }
 
+        public IEnumerable<WinesWtihoutAward> WinesWhitoutAwardByWinery()
+        {
+            return (from x in repo.ReadAll()
+                    select new WinesWtihoutAward()
+                    {
+                        Name = x.Name,                       
+                        Wines = x.Wines.Where(a => a.Awards.Count() == 0)
+
+                    });
+                    
+        }
         public IEnumerable<AvgByWinery> AveragePriceByWinery()
         {
             return (from x in repo.ReadAll()
@@ -56,6 +68,15 @@ namespace B8N159_HFT_2023241.Logic
         {
             return this.AveragePriceByWinery().Average(t => t.Avg);
         }
+    }
+
+    public class WinesWtihoutAward
+    {
+        public WinesWtihoutAward()
+        {
+        }
+        public string Name { get; set; }
+        public IEnumerable<Wine> Wines { get; set; }
     }
 
     public class AvgByWinery
