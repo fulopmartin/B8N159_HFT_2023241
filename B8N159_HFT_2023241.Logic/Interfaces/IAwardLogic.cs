@@ -12,7 +12,7 @@ namespace B8N159_HFT_2023241.Logic
         void Create(Award item);
         void Delete(int id);
         Award Read(int id);
-        IQueryable<Award> ReadAll();
+        IEnumerable<Award> ReadAll();
         void Update(Award item);
     }
 }

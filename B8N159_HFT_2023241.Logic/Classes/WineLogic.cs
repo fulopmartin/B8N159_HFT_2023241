@@ -32,7 +32,7 @@ namespace B8N159_HFT_2023241.Logic
             return this.repo.Read(id);
         }
 
-        public IQueryable<Wine> ReadAll()
+        public IEnumerable<Wine> ReadAll()
         {
             return this.repo.ReadAll();
         }
@@ -41,5 +41,7 @@ namespace B8N159_HFT_2023241.Logic
         {
             this.repo.Update(item);
         }
+
+
     }
 }

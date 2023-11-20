@@ -33,7 +33,7 @@ namespace B8N159_HFT_2023241.Logic
             return this.repo.Read(id);
         }
 
-        public IQueryable<Award> ReadAll()
+        public IEnumerable<Award> ReadAll()
         {
             return this.repo.ReadAll();
         }

@@ -12,7 +12,7 @@ namespace B8N159_HFT_2023241.Logic
         void Create(Wine item);
         void Delete(int id);
         Wine Read(int id);
-        IQueryable<Wine> ReadAll();
+        IEnumerable<Wine> ReadAll();
         void Update(Wine item);
     }
 }
