@@ -41,10 +41,10 @@ namespace B8N159_HFT_2023241.Logic
         {
             this.repo.Update(item);
         }
-        
+
         public IEnumerable<AvgByWinery> AveragePriceByWinery()
         {
-            return (from x in repo.ReadAll()                   
+            return (from x in repo.ReadAll()
                     select new AvgByWinery()
                     {
                         Name = x.Name,
@@ -52,7 +52,7 @@ namespace B8N159_HFT_2023241.Logic
                     });
         }
 
-        public double Avg()
+        public double AverageWinePrice()
         {
             return this.AveragePriceByWinery().Average(t => t.Avg);
         }

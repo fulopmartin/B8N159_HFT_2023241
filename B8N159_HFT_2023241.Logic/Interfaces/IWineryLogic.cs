@@ -15,5 +15,8 @@ namespace B8N159_HFT_2023241.Logic
         Winery Read(int id);
         IQueryable<Winery> ReadAll();
         void Update(Winery item);
+        IEnumerable<AvgByWinery> AveragePriceByWinery();
+        double AverageWinePrice();
+
     }
 }
