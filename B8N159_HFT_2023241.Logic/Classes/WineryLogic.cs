@@ -1,5 +1,4 @@
-﻿using B8N159_HFT_2023241.Logic.Interfaces;
-using B8N159_HFT_2023241.Models;
+﻿using B8N159_HFT_2023241.Models;
 using B8N159_HFT_2023241.Repository;
 using System;
 using System.Collections.Generic;
@@ -42,5 +41,30 @@ namespace B8N159_HFT_2023241.Logic
         {
             this.repo.Update(item);
         }
+        
+        public IEnumerable<AvgByWinery> AveragePriceByWinery()
+        {
+            return (from x in repo.ReadAll()                   
+                    select new AvgByWinery()
+                    {
+                        Name = x.Name,
+                        Avg = x.Wines.Average(p => p.Price)
+                    });
+        }
+
+        public double Avg()
+        {
+            return this.AveragePriceByWinery().Average(t => t.Avg);
+        }
+    }
+
+    public class AvgByWinery
+    {
+        public AvgByWinery()
+        {
+        }
+
+        public string Name { get; set; }
+        public double Avg { get; set; }
     }
 }
