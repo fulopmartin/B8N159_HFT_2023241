@@ -14,5 +14,7 @@ namespace B8N159_HFT_2023241.Logic
         Wine Read(int id);
         IEnumerable<Wine> ReadAll();
         void Update(Wine item);
+        //non-crud
+        IEnumerable<Wine> WinesWithNationalAward();
     }
 }

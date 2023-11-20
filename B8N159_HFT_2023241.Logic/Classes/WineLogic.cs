@@ -41,7 +41,20 @@ namespace B8N159_HFT_2023241.Logic
         {
             this.repo.Update(item);
         }
+        //non-crud
+        public IEnumerable<Wine> WinesWithNationalAward()
+        {
+            return repo.ReadAll().Select(t => t).Where(x => x.Awards.Any(d => d.IsDomestic == false));
+        }
+    }
 
+    public class WineWithNationalAward
+    {
+        public WineWithNationalAward()
+        {
+        }
 
+        public string Name { get; set; }
+        public bool National { get; set; }
     }
 }

@@ -14,13 +14,18 @@ namespace B8N159_HFT_2023241.Client
 
             WineryRepository wr = new WineryRepository(db);
             WineryLogic wl = new WineryLogic(wr);
-
+            WineRepository winer = new WineRepository(db);
+            WineLogic winel = new WineLogic(winer);
             var avgByWinery =  wl.AveragePriceByWinery();
 
             var avg = wl.AverageWinePrice();
 
             var winesWhitoutAward = wl.WinesWhitoutAwardByWinery();
-                        
+
+            var winesWithNationalAward = winel.WinesWithNationalAward();
+
+            
+        
         }
     }
 }
