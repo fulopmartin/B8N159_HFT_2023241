@@ -66,7 +66,7 @@ namespace B8N159_HFT_2023241.Logic
 
         public double AverageWinePrice()
         {
-            return this.AveragePriceByWinery().Average(t => t.Avg);
+            return repo.ReadAll().Select(a => a.Wines.Average(p => p.Price)).Average();
         }
     }
 
