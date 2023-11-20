@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace B8N159_HFT_2023241.Logic.Classes
+namespace B8N159_HFT_2023241.Logic
 {
     public class WineryLogic : IWineryLogic
     {
