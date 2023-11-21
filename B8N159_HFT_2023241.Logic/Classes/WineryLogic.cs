@@ -30,6 +30,11 @@ namespace B8N159_HFT_2023241.Logic
 
         public Winery Read(int id)
         {
+            var winery = this.repo.Read(id);
+            if(winery == null)
+            {
+                throw new ArgumentException("Winery does not exist");
+            }
             return this.repo.Read(id);
         }
 
@@ -51,8 +56,7 @@ namespace B8N159_HFT_2023241.Logic
                         Name = x.Name,                       
                         Wines = x.Wines.Where(a => a.Awards.Count() == 0)
 
-                    });
-                    
+                    });                    
         }
         public IEnumerable<AvgByWinery> AveragePriceByWinery()
         {

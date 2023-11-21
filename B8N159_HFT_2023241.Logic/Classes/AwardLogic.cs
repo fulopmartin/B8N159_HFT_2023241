@@ -30,6 +30,11 @@ namespace B8N159_HFT_2023241.Logic
 
         public Award Read(int id)
         {
+            var award = this.repo.Read(id);
+            if (award == null)
+            {
+                throw new ArgumentException("Award does not exist");
+            }
             return this.repo.Read(id);
         }
 

@@ -29,6 +29,11 @@ namespace B8N159_HFT_2023241.Logic
 
         public Wine Read(int id)
         {
+            var wine = this.repo.Read(id);
+            if (wine == null)
+            {
+                throw new ArgumentException("Wine does not exist");
+            }
             return this.repo.Read(id);
         }
 
