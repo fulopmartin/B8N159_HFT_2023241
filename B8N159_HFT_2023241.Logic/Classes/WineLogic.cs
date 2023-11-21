@@ -41,10 +41,18 @@ namespace B8N159_HFT_2023241.Logic
         {
             this.repo.Update(item);
         }
-        //non-crud
+
+        //non-cruds
         public IEnumerable<Wine> WinesWithNationalAward()
         {
             return repo.ReadAll().Select(t => t).Where(x => x.Awards.Any(d => d.IsDomestic == false));
+        }
+
+        public Wine WineWithMostDomesticAward()
+        {
+            return (from x in repo.ReadAll()
+                    orderby x.Awards.Count(x => x.IsDomestic) descending
+                    select x).First();
         }
     }
     

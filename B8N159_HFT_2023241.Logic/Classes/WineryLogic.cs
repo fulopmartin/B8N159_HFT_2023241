@@ -68,7 +68,7 @@ namespace B8N159_HFT_2023241.Logic
         {
             return repo.ReadAll().Select(a => a.Wines.Average(p => p.Price)).Average();
         }
-
+        
         public Winery WineryWithMostExpensiveWine()
         {
             return (from x in repo.ReadAll()
