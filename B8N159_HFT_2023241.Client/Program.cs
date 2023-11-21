@@ -24,6 +24,8 @@ namespace B8N159_HFT_2023241.Client
 
             var winesWithNationalAward = winel.WinesWithNationalAward();
 
+            var WineryWithMostExpensiveWine = wl.WineryWithMostExpensiveWine();
+
             
         
         }

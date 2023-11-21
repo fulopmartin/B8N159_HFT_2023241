@@ -42,7 +42,7 @@ namespace B8N159_HFT_2023241.Logic
         {
             this.repo.Update(item);
         }
-
+        //non-cruds
         public IEnumerable<WinesWtihoutAward> WinesWhitoutAwardByWinery()
         {
             return (from x in repo.ReadAll()
@@ -67,6 +67,13 @@ namespace B8N159_HFT_2023241.Logic
         public double AverageWinePrice()
         {
             return repo.ReadAll().Select(a => a.Wines.Average(p => p.Price)).Average();
+        }
+
+        public Winery WineryWithMostExpensiveWine()
+        {
+            return (from x in repo.ReadAll()
+                    orderby x.Wines.Max(p => p.Price) descending
+                    select x).First();
         }
     }
 

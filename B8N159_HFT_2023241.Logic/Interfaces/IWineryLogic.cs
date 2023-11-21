@@ -15,9 +15,11 @@ namespace B8N159_HFT_2023241.Logic
         Winery Read(int id);
         IEnumerable<Winery> ReadAll();
         void Update(Winery item);
+        //non-cruds
         IEnumerable<WinesWtihoutAward> WinesWhitoutAwardByWinery();
         IEnumerable<AvgByWinery> AveragePriceByWinery();
         double AverageWinePrice();
+        Winery WineryWithMostExpensiveWine();
 
     }
 }
