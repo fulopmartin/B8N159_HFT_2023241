@@ -17,17 +17,14 @@ namespace B8N159_HFT_2023241.Test
         {
             throw new NotImplementedException();
         }
-
         public void Delete(int id)
         {
             throw new NotImplementedException();
         }
-
         public Wine Read(int id)
         {
             throw new NotImplementedException();
         }
-
         public IQueryable<Wine> ReadAll()
         {
             return new List<Wine>()
@@ -60,30 +57,25 @@ namespace B8N159_HFT_2023241.Test
                 }
             }.AsQueryable();
         }
-
         public void Update(Wine item)
         {
             throw new NotImplementedException();
         }
     }
-
     public class FakeWineryRepository : IRepository<Winery>
     {
         public void Create(Winery item)
         {
             throw new NotImplementedException();
         }
-
         public void Delete(int id)
         {
             throw new NotImplementedException();
         }
-
         public Winery Read(int id)
         {
             throw new NotImplementedException();
         }
-
         public IQueryable<Winery> ReadAll()
         {
             return new List<Winery>()
@@ -127,18 +119,22 @@ namespace B8N159_HFT_2023241.Test
                 
             }.AsQueryable();
         }
-
         public void Update(Winery item)
         {
             throw new NotImplementedException();
         }
     }
+
     [TestFixture]
     public class Tester
     {
         WineLogic wineLogic;
+        WineLogic wineLogicMoq;
+
         WineryLogic wineryLogicMoq;
         WineryLogic wineryLogic;
+
+        Mock<IRepository<Wine>> mockWineRepository;
         Mock<IRepository<Winery>> mockWineryRepository;
 
         [SetUp]
@@ -147,15 +143,46 @@ namespace B8N159_HFT_2023241.Test
             wineLogic = new WineLogic(new FakeWineRepository());
             wineryLogic = new WineryLogic(new FakeWineryRepository());
             
-            var inputdata = new List<Winery>()
+            var wineryInputData = new List<Winery>()
             {
                 new Winery(1,"Első borászat",1000),
                 new Winery(2,"Második borászat",2000),
                 new Winery(3,"Harmadik borászat",3000),
             }.AsQueryable();
-
+            var wineInputData = new List<Wine>()
+            {
+                new Wine(1,"A bor",2017,WineType.Vörös,1900,1)
+                {
+                    Awards = new HashSet<Award>()
+                    {
+                        new Award(1,2017,"A",1,true),
+                        new Award(2,2018,"B",1,true),
+                        new Award(3,2016,"C",1,false),
+                        new Award(4,2018,"D",1,false)
+                    }
+                },
+                new Wine(2,"B bor",2019,WineType.Fehér,2100,2)
+                {
+                    Awards = new HashSet<Award>()
+                    {
+                        new Award(5,2018,"E",2,false),
+                    }
+                },
+                new Wine(3,"C bor",2016,WineType.Rozé,3000,3)
+                {
+                    Awards = new HashSet<Award>()
+                    {
+                        new Award(6,2018,"F",3,true),
+                        new Award(7,2018,"G",3,true),
+                        new Award(8,2018,"H",3,true),
+                    }
+                }
+            }.AsQueryable();
+            mockWineRepository = new Mock<IRepository<Wine>>();
             mockWineryRepository = new Mock<IRepository<Winery>>();
-            mockWineryRepository.Setup(m => m.ReadAll()).Returns(inputdata);
+            mockWineRepository.Setup(m => m.ReadAll()).Returns(wineInputData);           
+            mockWineryRepository.Setup(m => m.ReadAll()).Returns(wineryInputData);           
+            wineLogicMoq = new WineLogic(mockWineRepository.Object);
             wineryLogicMoq = new WineryLogic(mockWineryRepository.Object);
         }
         [Test]
@@ -227,7 +254,8 @@ namespace B8N159_HFT_2023241.Test
         [Test]
         public void WineryCreateTestWithInvalidItem()
         {
-            Winery testItem = null; try
+            Winery testItem = null; 
+            try
             {
                 wineryLogicMoq.Create(testItem);
             }
@@ -245,6 +273,31 @@ namespace B8N159_HFT_2023241.Test
             wineryLogicMoq.Create(testItem);
 
             mockWineryRepository.Verify(
+                m => m.Create(testItem),
+                Times.Once);
+        }
+        [Test]
+        public void WineCreateTestWithInvalidItem()
+        {
+            Wine testItem = null;
+            try
+            {
+                wineLogicMoq.Create(testItem);
+            }
+            catch
+            {
+            }
+            mockWineRepository.Verify(
+                m => m.Create(testItem),
+                Times.Never);
+        }
+        [Test]
+        public void WineCreateTestWithValidItem()
+        {
+            Wine testItem = new Wine(4, "Teszt Bor",2015,WineType.Vörös, 7000,1);
+            wineLogicMoq.Create(testItem);
+
+            mockWineRepository.Verify(
                 m => m.Create(testItem),
                 Times.Once);
         }
