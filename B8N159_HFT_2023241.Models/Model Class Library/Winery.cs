@@ -18,7 +18,9 @@ namespace B8N159_HFT_2023241.Models
         public int Zipcode { get; set; }
         [NotMapped]
         public virtual ICollection<Wine> Wines { get; set; }
-
+        public Winery()
+        {
+        }
         public Winery(int wineryId, string name, int zipcode)
         {
             WineryId = wineryId;

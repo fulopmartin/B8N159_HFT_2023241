@@ -39,5 +39,30 @@ namespace B8N159_HFT_2023241.Test
                 m => m.ReadAll(),
                 Times.Once());
         }
+
+        [Test]
+        public void WineryCreateTestWithInvalidItem()
+        {
+            Winery testItem = null; try
+            {
+                wl.Create(testItem);
+            }
+            catch
+            {
+            }            
+            mockWineryRepository.Verify(
+                m => m.Create(testItem),
+                Times.Never);
+        }
+        [Test]
+        public void WineryCreateTestWithValidItem()
+        {
+            Winery testItem = new Winery(4,"Teszt Borászat",7000);
+            wl.Create(testItem);
+
+            mockWineryRepository.Verify(
+                m => m.Create(testItem),
+                Times.Once);
+        }
     }
 }
