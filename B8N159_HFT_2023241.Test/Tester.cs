@@ -92,16 +92,34 @@ namespace B8N159_HFT_2023241.Test
                 {
                     Wines = new HashSet<Wine>()
                     {
-                        new Wine(1,"A bor",2018,WineType.Fehér,1000,1),
-                        new Wine(2,"B bor",2016,WineType.Vörös,3000,1),
-                        new Wine(3,"C bor",2020,WineType.Rozé,2000,1),
+                        new Wine(1,"A bor", 2018, WineType.Fehér, 1000, 1)
+                        {
+                            Awards = new HashSet<Award>()
+                            {
+                                new Award(1,2017,"A",1,true)
+                            }
+                        },
+                        new Wine(2,"B bor", 2016, WineType.Vörös, 3000, 1)
+                        {
+                            Awards = new HashSet<Award>()
+                            {
+                                new Award(2,2017,"B",2,true)
+                            }
+                        },                        
+                        new Wine(3,"C bor",2020,WineType.Rozé,2000,1)
                     }
                 },
                 new Winery(2,"B borászat", 2000)
                 {
                     Wines = new HashSet<Wine>()
                     {
-                        new Wine(4,"D bor",2018,WineType.Fehér,2000,2),
+                        new Wine(4,"D bor", 2018, WineType.Fehér, 2000, 2)
+                        {
+                            Awards = new HashSet<Award>()
+                            {
+                                new Award(3,2015,"C",4,false)
+                            }
+                        },
                         new Wine(5,"E bor",2016,WineType.Vörös,4000,2),
                      
                     }
@@ -139,6 +157,45 @@ namespace B8N159_HFT_2023241.Test
             mockWineryRepository = new Mock<IRepository<Winery>>();
             mockWineryRepository.Setup(m => m.ReadAll()).Returns(inputdata);
             wineryLogicMoq = new WineryLogic(mockWineryRepository.Object);
+        }
+        [Test]
+        public void WinesWhitoutAwardByWineryTest()
+        {
+            var result = wineryLogic.WinesWhitoutAwardByWinery().ToList();
+                        
+            Assert.That(result[0].Wines.First().Name == "C bor");
+            Assert.That(result[1].Wines.First().Name == "E bor");
+            Assert.That(result[0].Wines.Count() == 1);
+            Assert.That(result[1].Wines.Count() == 1);
+        }
+        [Test]
+        public void AveragePriceByWineryTest()
+        {
+            var result = wineryLogic.AveragePriceByWinery().ToList();
+
+            var expected = new List<AvgByWinery>()
+            {
+                new AvgByWinery()
+                {
+                    Name = "A boráaszat",
+                    Avg = 2000
+                },
+                new AvgByWinery()
+                {
+                    Name = "B boráaszat",
+                    Avg = 3000
+                }
+            };
+            
+            Assert.That(expected[0].Avg == result[0].Avg);
+            Assert.That(expected[1].Avg == result[1].Avg);
+        }
+        [Test]
+        public void WineryWithMostExpensiveWineTest()
+        {
+            var result = wineryLogic.WineryWithMostExpensiveWine();
+
+            Assert.That(result.Name == "B borászat");
         }
         [Test]
         public void AverageWinePriceTest()
