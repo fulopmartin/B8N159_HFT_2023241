@@ -51,37 +51,6 @@ namespace B8N159_HFT_2023241.Models
             }
             WineryId = wineryId;
             Awards = new HashSet<Award>();
-        }
-        public override bool Equals(object obj)
-        {
-            Wine b = obj as Wine;
-            if (b == null)
-            {
-                return false;
-            }
-            else
-            {
-                return this.Name == b.Name
-                    && this.Year == b.Year
-                    && this.Type == b.Type
-                    && this.Price == b.Price
-                    && this.WineId == b.WineId
-                    && this.WineryId == b.WineryId
-                    && this.IsCheap == b.IsCheap
-                    && this.Awards == b.Awards;
-            }
-        }
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(
-                this.Name,
-                this.Year, 
-                this.Type,
-                this.Price,
-                this.WineId,
-                this.WineryId,
-                this.IsCheap,
-                this.Awards);
-        }
+        }        
     }
 }

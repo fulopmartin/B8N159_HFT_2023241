@@ -30,33 +30,6 @@ namespace B8N159_HFT_2023241.Models
             AwardName = awardName;
             WineId = wineId;
             IsDomestic = isDomestic;
-        }
-
-        public override bool Equals(object obj)
-        {
-            Award b = obj as Award;
-            if (b == null)
-            {
-                return false;
-            }
-            else
-            {
-                return this.AwardId == b.AwardId
-                    && this.AwardYear == b.AwardYear
-                    && this.AwardName == b.AwardName
-                    && this.WineId == b.WineId
-                    && this.IsDomestic == b.IsDomestic;
-                    
-            }
-        }
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(
-                this.AwardId,
-                this.AwardYear,
-                this.AwardName,
-                this.WineId,
-                this.IsDomestic);
-        }
+        }        
     }
 }

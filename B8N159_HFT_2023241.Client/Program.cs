@@ -23,7 +23,7 @@ namespace B8N159_HFT_2023241.Client
             var winesWhitoutAward = wl.WinesWhitoutAwardByWinery();
 
             var winesWithNationalAward = winel.WinesWithNationalAward();
-            ;
+            
             var WineryWithMostExpensiveWine = wl.WineryWithMostExpensiveWine();
 
             var WineWithMostDomesticAwards = winel.WineWithMostDomesticAward();
