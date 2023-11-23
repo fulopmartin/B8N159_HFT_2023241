@@ -2,6 +2,7 @@
 using ConsoleTables;
 using ConsoleTools;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -150,7 +151,6 @@ namespace B8N159_HFT_2023241.Client
                 rest.Put(newWinery, "winery");
             }
         }
-
         private static void Delete(string entity)
         {
             if (entity == "Award")
@@ -172,7 +172,6 @@ namespace B8N159_HFT_2023241.Client
                 rest.Delete(wineryId, "winery");
             }
         }
-
         private static void Create(string entity)
         {
             if (entity == "Award")
@@ -252,7 +251,6 @@ namespace B8N159_HFT_2023241.Client
                 },"winery");
             }
         }
-
         private static void List(string entity)
         {
             if (entity == "Award")
@@ -287,6 +285,90 @@ namespace B8N159_HFT_2023241.Client
             }
             Console.ReadLine();
         }
+        private static void WinesWithNationalAward()
+        {
+            List<Wine> wines = rest.Get<Wine>("WineStat/WinesWithNationalAward");
+            var table = new ConsoleTable("WineId", "WineName", "Year", "Price");
+            foreach (var item in wines)
+            {
+                table.AddRow(item.WineId, item.Name, item.Year, item.Price + " Ft");
+            }
+            table.Write(Format.Minimal);
+            Console.ReadLine();
+            
+            
+        }
+        private static void AverageWinePrice()
+        {
+            double result = rest.GetSingle<double>("WineryStat/AverageWinePrice");
+            Console.WriteLine("Average price: " + result);
+            Console.ReadLine();
+        }
+        private static void WineWithMostDomesticAward()
+        {
+            Wine result = rest.GetSingle<Wine>("WineStat/WineWithMostDomesticAward");
+            Console.WriteLine("Wine with most domestic award: " + result.Name);
+            Console.ReadLine();
+        }
+        private static void WineryWithMostExpensiveWine()
+        {
+            Winery result = rest.GetSingle<Winery>("WineryStat/WineryWithMostExpensiveWine");
+            Console.WriteLine("Winery with most expensive wine: " + result.Name);
+            Console.ReadLine();
+        }
+
+        private static void AveragePriceByWinery()
+        {
+            var result = rest.Get<AvgByWinery>("WineryStat/AveragePriceByWinery");
+            var table = new ConsoleTable("Winery",  "Average Price");
+            foreach (var item in result)
+            {
+                table.AddRow(item.Name, item.Avg + " Ft");
+            }
+            table.Write(Format.Minimal);
+            Console.ReadLine();
+        }
+        private static void WinesWtihoutAwardsByWinery()
+        {
+            var result = rest.Get<WinesWtihoutAward>("WineryStat/WinesWtihoutAwardsByWinery");
+            
+            var table = new ConsoleTable("Winery", "Wines without awards");
+            foreach (var item in result)
+            {
+                table.AddRow(item.Name, item.Wines.First().Name);                
+                for(int i= 1; i < item.Wines.Count(); i++)
+                {
+                    table.AddRow(" ", item.Wines.ToList()[i].Name);
+                }
+                table.AddRow(" ", " ");
+            }
+            table.Write(Format.MarkDown);
+
+            Console.ReadLine();
+        }
+
+        private class AvgByWinery
+        {
+            public AvgByWinery()
+            {
+            }
+            public string Name { get; set; }
+            public double Avg { get; set; }
+        }
+        public class WinesWtihoutAward
+        {
+            public WinesWtihoutAward()
+            {
+            }
+            public string Name { get; set; }
+            public IEnumerable<Wine> Wines { get; set; }
+
+            public IEnumerable<Wine> GetWines()
+            {
+                return Wines;
+            }
+        }
+
         static void Main(string[] args)
         {
             rest = new RestService("http://localhost:5874/", "winery");
@@ -303,6 +385,8 @@ namespace B8N159_HFT_2023241.Client
                 .Add("Create", () => Create("Wine"))
                 .Add("Delete", () => Delete("Wine"))
                 .Add("Update", () => Update("Wine"))
+                .Add("WineWithMostDomesticAward", () => WineWithMostDomesticAward())
+                .Add("WinesWithNationalAward", () => WinesWithNationalAward())
                 .Add("Exit", ConsoleMenu.Close);
 
             var winerySubMenu = new ConsoleMenu(args, level: 1)
@@ -310,6 +394,10 @@ namespace B8N159_HFT_2023241.Client
                 .Add("Create", () => Create("Winery"))
                 .Add("Delete", () => Delete("Winery"))
                 .Add("Update", () => Update("Winery"))
+                .Add("AverageWinePrice", () => AverageWinePrice())
+                .Add("AveragePriceByWinery", () => AveragePriceByWinery())
+                .Add("WinesWtihoutAwardsByWinery", () => WinesWtihoutAwardsByWinery())
+                .Add("WineryWithMostExpensiveWine", () => WineryWithMostExpensiveWine())
                 .Add("Exit", ConsoleMenu.Close);
 
 
@@ -321,5 +409,7 @@ namespace B8N159_HFT_2023241.Client
 
             menu.Show();
         }
+
+        
     }
 }

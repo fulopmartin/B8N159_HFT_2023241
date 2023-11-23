@@ -99,7 +99,6 @@ namespace B8N159_HFT_2023241.Logic
         public AvgByWinery()
         {
         }
-
         public string Name { get; set; }
         public double Avg { get; set; }
     }
