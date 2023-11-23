@@ -127,7 +127,27 @@ namespace B8N159_HFT_2023241.Client
             }
             if(entity == "Winery")
             {
+                Console.Write("Enter winery's id to update: ");
+                int wineryId = int.Parse(Console.ReadLine());
+                Winery newWinery = rest.Get<Winery>(wineryId, "winery");
 
+                Console.Write("Do you want to change winery name? (Y/N) ");
+                string decision = Console.ReadLine();
+                if (decision == "Y")
+                {
+                    Console.Write($"New name [old: {newWinery.Name}]: ");
+                    string newName = Console.ReadLine();
+                    newWinery.Name = newName;
+                }
+                Console.Write("Do you want to change winery zipcode? (Y/N) ");
+                decision = Console.ReadLine();
+                if (decision == "Y")
+                {
+                    Console.Write($"New year [old: {newWinery.Zipcode}]: ");
+                    int newZipCode = int.Parse(Console.ReadLine());
+                    newWinery.Zipcode = newZipCode;
+                }
+                rest.Put(newWinery, "winery");
             }
         }
 
