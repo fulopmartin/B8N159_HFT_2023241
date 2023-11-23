@@ -294,9 +294,7 @@ namespace B8N159_HFT_2023241.Client
                 table.AddRow(item.WineId, item.Name, item.Year, item.Price + " Ft");
             }
             table.Write(Format.Minimal);
-            Console.ReadLine();
-            
-            
+            Console.ReadLine();            
         }
         private static void AverageWinePrice()
         {
@@ -316,7 +314,6 @@ namespace B8N159_HFT_2023241.Client
             Console.WriteLine("Winery with most expensive wine: " + result.Name);
             Console.ReadLine();
         }
-
         private static void AveragePriceByWinery()
         {
             var result = rest.Get<AvgByWinery>("WineryStat/AveragePriceByWinery");
@@ -346,7 +343,6 @@ namespace B8N159_HFT_2023241.Client
 
             Console.ReadLine();
         }
-
         private class AvgByWinery
         {
             public AvgByWinery()
@@ -400,7 +396,6 @@ namespace B8N159_HFT_2023241.Client
                 .Add("WineryWithMostExpensiveWine", () => WineryWithMostExpensiveWine())
                 .Add("Exit", ConsoleMenu.Close);
 
-
             var menu = new ConsoleMenu(args, level: 0)
                 .Add("Awards", () => awardSubMenu.Show())
                 .Add("Wines", () => wineSubMenu.Show())
@@ -408,8 +403,6 @@ namespace B8N159_HFT_2023241.Client
                 .Add("Exit", ConsoleMenu.Close);
 
             menu.Show();
-        }
-
-        
+        }        
     }
 }
