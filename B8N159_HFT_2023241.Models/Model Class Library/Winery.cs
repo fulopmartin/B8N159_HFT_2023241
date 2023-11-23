@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace B8N159_HFT_2023241.Models
@@ -17,6 +18,7 @@ namespace B8N159_HFT_2023241.Models
         public string Name { get; set; }
         public int Zipcode { get; set; }
         [NotMapped]
+        [JsonIgnore]
         public virtual ICollection<Wine> Wines { get; set; }
         public Winery()
         {

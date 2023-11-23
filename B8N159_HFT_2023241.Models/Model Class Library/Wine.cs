@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace B8N159_HFT_2023241.Models
@@ -27,8 +28,10 @@ namespace B8N159_HFT_2023241.Models
         //foreign key
         public int WineryId { get; set; }        
         [NotMapped]
+        [JsonIgnore]
         public virtual Winery Winery { get; set; }
         [NotMapped]
+        [JsonIgnore]
         public virtual ICollection<Award> Awards { get; set; }
 
         public Wine()
