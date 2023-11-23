@@ -40,7 +40,7 @@ namespace B8N159_HFT_2023241.Endpoint.Controllers
         }
 
         // PUT api/<WineryController>/5
-        [HttpPut("{id}")]
+        [HttpPut]
         public void Update([FromBody] Winery value)
         {
             this.logic.Update(value);

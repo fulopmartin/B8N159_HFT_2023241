@@ -24,7 +24,10 @@ namespace B8N159_HFT_2023241.Repository.ModelRepositories
             var old = Read(item.AwardId);
             foreach (var prop in old.GetType().GetProperties())
             {
-                prop.SetValue(item, prop.GetValue(item));
+                if(prop.GetAccessors().FirstOrDefault(t => t.IsVirtual) == null)
+                {
+                    prop.SetValue(old, prop.GetValue(item));
+                }
             }
             ctx.SaveChanges();
         }
