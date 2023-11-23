@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using B8N159_HFT_2023241.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,7 +6,6 @@ namespace B8N159_HFT_2023241.Repository
 {
     public class WineryDbContext : DbContext
     {
-
         public DbSet<Winery> Wineries { get; set; }
         public DbSet<Wine> Wines { get; set; }
         public DbSet<Award> Awards { get; set; }
@@ -30,7 +25,6 @@ namespace B8N159_HFT_2023241.Repository
             }
             base.OnConfiguring(optionsBuilder);
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //connections
