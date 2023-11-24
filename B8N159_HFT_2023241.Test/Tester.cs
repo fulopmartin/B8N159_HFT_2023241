@@ -29,7 +29,7 @@ namespace B8N159_HFT_2023241.Test
         {
             return new List<Wine>()
             {
-                new Wine(1,"A bor",2017,WineType.Vörös,1900,1)
+                new Wine(1,"A bor",2017,WineType.Red,1900,1)
                 {
                     Awards = new HashSet<Award>()
                     {
@@ -39,7 +39,7 @@ namespace B8N159_HFT_2023241.Test
                         new Award(4,2018,"D",1,false)
                     }
                 },
-                new Wine(2,"B bor",2019,WineType.Fehér,2100,2)
+                new Wine(2,"B bor",2019,WineType.White,2100,2)
                 {
                     Awards = new HashSet<Award>()
                     {
@@ -84,14 +84,14 @@ namespace B8N159_HFT_2023241.Test
                 {
                     Wines = new HashSet<Wine>()
                     {
-                        new Wine(1,"A bor", 2018, WineType.Fehér, 1000, 1)
+                        new Wine(1,"A bor", 2018, WineType.White, 1000, 1)
                         {
                             Awards = new HashSet<Award>()
                             {
                                 new Award(1,2017,"A",1,true)
                             }
                         },
-                        new Wine(2,"B bor", 2016, WineType.Vörös, 3000, 1)
+                        new Wine(2,"B bor", 2016, WineType.Red, 3000, 1)
                         {
                             Awards = new HashSet<Award>()
                             {
@@ -105,14 +105,14 @@ namespace B8N159_HFT_2023241.Test
                 {
                     Wines = new HashSet<Wine>()
                     {
-                        new Wine(4,"D bor", 2018, WineType.Fehér, 2000, 2)
+                        new Wine(4,"D bor", 2018, WineType.White, 2000, 2)
                         {
                             Awards = new HashSet<Award>()
                             {
                                 new Award(3,2015,"C",4,false)
                             }
                         },
-                        new Wine(5,"E bor",2016,WineType.Vörös,4000,2),
+                        new Wine(5,"E bor",2016,WineType.Red,4000,2),
                      
                     }
                 }               
@@ -151,7 +151,7 @@ namespace B8N159_HFT_2023241.Test
             }.AsQueryable();
             var wineInputData = new List<Wine>()
             {
-                new Wine(1,"A bor",2017,WineType.Vörös,1900,1)
+                new Wine(1,"A bor",2017,WineType.Red,1900,1)
                 {
                     Awards = new HashSet<Award>()
                     {
@@ -161,7 +161,7 @@ namespace B8N159_HFT_2023241.Test
                         new Award(4,2018,"D",1,false)
                     }
                 },
-                new Wine(2,"B bor",2019,WineType.Fehér,2100,2)
+                new Wine(2,"B bor",2019,WineType.White,2100,2)
                 {
                     Awards = new HashSet<Award>()
                     {
@@ -294,7 +294,7 @@ namespace B8N159_HFT_2023241.Test
         [Test]
         public void WineCreateTestWithValidItem()
         {
-            Wine testItem = new Wine(4, "Teszt Bor",2015,WineType.Vörös, 7000,1);
+            Wine testItem = new Wine(4, "Teszt Bor",2015,WineType.Red, 7000,1);
             wineLogicMoq.Create(testItem);
 
             mockWineRepository.Verify(

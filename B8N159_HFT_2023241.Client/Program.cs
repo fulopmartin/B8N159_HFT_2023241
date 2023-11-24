@@ -87,10 +87,10 @@ namespace B8N159_HFT_2023241.Client
                 {
                     Console.Write($"New type [old: {newWine.Type}] (White/Rozé/Red): ");
                     string newType = Console.ReadLine();
-                    WineType newWineType = WineType.Vörös;
+                    WineType newWineType = WineType.Red;
                     if(newType == "White")
                     {
-                        newWineType = WineType.Fehér;
+                        newWineType = WineType.White;
                     }
                     else if(newType == "Rozé")
                     {
@@ -217,10 +217,10 @@ namespace B8N159_HFT_2023241.Client
                 {
                     isCheap = false;
                 }
-                WineType type = WineType.Vörös;
+                WineType type = WineType.Red;
                 if (wineType == "White")
                 {
-                    type = WineType.Fehér;
+                    type = WineType.White;
                 }
                 else if (wineType == "Rozé")
                 {

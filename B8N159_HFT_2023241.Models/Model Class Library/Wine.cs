@@ -7,8 +7,8 @@ namespace B8N159_HFT_2023241.Models
 {
     public enum WineType
     {
-        Vörös = 1,
-        Fehér = 2,
+        Red = 1,
+        White = 2,
         Rozé = 3
     };
     public class Wine
