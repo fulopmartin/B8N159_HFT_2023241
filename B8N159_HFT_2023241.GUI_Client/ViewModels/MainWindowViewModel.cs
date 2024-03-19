@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace B8N159_HFT_2023241.GUI_Client
+namespace B8N159_HFT_2023241.GUI_Client.ViewModels
 {
     public class MainWindowViewModel : ObservableRecipient
     {
@@ -23,7 +23,7 @@ namespace B8N159_HFT_2023241.GUI_Client
             set { SetProperty(ref selectedControl, value); }
         }
         //RestCollections
-        public RestCollection<Award> Awards {  get; set; }
+        
         public RestCollection<Wine> Wines {  get; set; }
         public RestCollection<Winery> Wineries {  get; set; }
 
@@ -34,7 +34,7 @@ namespace B8N159_HFT_2023241.GUI_Client
         public RelayCommand NonCrudsCommand { get; set; }
 
 
-        public static bool IsInDesignMode
+        private static bool IsInDesignMode
         {
             get
             {
@@ -46,7 +46,7 @@ namespace B8N159_HFT_2023241.GUI_Client
         {
             if (!IsInDesignMode)
             {
-                Awards = new RestCollection<Award>("http://localhost:5874/", "award");
+                
                 Wines = new RestCollection<Wine>("http://localhost:5874/", "wine");
                 Wineries = new RestCollection<Winery>("http://localhost:5874/", "winery");
 

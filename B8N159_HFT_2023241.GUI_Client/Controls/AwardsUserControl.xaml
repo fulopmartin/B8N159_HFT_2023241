@@ -4,11 +4,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:B8N159_HFT_2023241.GUI_Client.Controls"
+             xmlns:vm="clr-namespace:B8N159_HFT_2023241.GUI_Client.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
+    <UserControl.DataContext>
+        <vm:AwardsViewModel/>
+    </UserControl.DataContext>
     <Grid>
-        <ListBox FontSize="12" FontStyle="Italic" Grid.Column="1" ItemsSource="{Binding  }">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="7*" />
+        </Grid.ColumnDefinitions>
+        <ListBox Grid.Column="1" FontSize="12" FontStyle="Italic" ItemsSource="{Binding Awards }">
             <ListBox.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="White" Offset="1"/>
@@ -17,7 +24,7 @@
             </ListBox.Background>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding Name}"/>
+                    <Label Content="{Binding AwardName}"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
