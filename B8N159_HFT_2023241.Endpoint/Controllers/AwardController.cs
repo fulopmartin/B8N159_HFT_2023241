@@ -1,6 +1,9 @@
-﻿using B8N159_HFT_2023241.Logic;
+﻿using B8N159_HFT_2023241.Endpoint.Services;
+using B8N159_HFT_2023241.Logic;
 using B8N159_HFT_2023241.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
 
@@ -11,10 +14,12 @@ namespace B8N159_HFT_2023241.Endpoint.Controllers
     public class AwardController : ControllerBase
     {
         IAwardLogic logic;
+        IHubContext<SignalRHub> hub;
 
-        public AwardController(IAwardLogic logic)
+        public AwardController(IAwardLogic logic, IHubContext<SignalRHub> hub)
         {
             this.logic = logic;
+            this.hub = hub;
         }
 
         // GET: api/<AwardController>
@@ -36,6 +41,7 @@ namespace B8N159_HFT_2023241.Endpoint.Controllers
         public void Create([FromBody] Award value)
         {
             this.logic.Create(value);
+            this.hub.Clients.All.SendAsync("AwardCreated", value);
         }
 
         // PUT api/<AwardController>/5
@@ -43,13 +49,16 @@ namespace B8N159_HFT_2023241.Endpoint.Controllers
         public void Update([FromBody] Award value)
         {
             this.logic.Update(value);
+            this.hub.Clients.All.SendAsync("AwardUpdated", value);
         }
 
         // DELETE api/<AwardController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var awardToDelete = this.logic.Read(id);
             this.logic.Delete(id);
+            this.hub.Clients.All.SendAsync("AwardDeleted", awardToDelete);
         }
     }
 }

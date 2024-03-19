@@ -55,7 +55,7 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
         {            
             if(!IsInDesignMode)
             {
-                Awards = new RestCollection<Award>("http://localhost:5874/", "award");
+                Awards = new RestCollection<Award>("http://localhost:5874/", "award","hub");
 
                 CreateAwardCommand = new RelayCommand(() =>
                 {

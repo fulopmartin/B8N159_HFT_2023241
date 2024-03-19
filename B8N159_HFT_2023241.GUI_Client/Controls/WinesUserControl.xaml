@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:B8N159_HFT_2023241.GUI_Client.Controls"
              xmlns:vm="clr-namespace:B8N159_HFT_2023241.GUI_Client.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="960" d:DesignWidth="1600" FontSize="16">
     <UserControl.DataContext>
         <vm:WinesViewModel/>
     </UserControl.DataContext>
@@ -22,9 +22,23 @@
                     <GradientStop Color="#FFCD5C5A" Offset="0"/>
                 </LinearGradientBrush>
             </StackPanel.Background>
-        </StackPanel>
-        <ListBox Grid.Column="1" FontSize="12" FontStyle="Italic" ItemsSource="{Binding Wines}" BorderThickness="0,0,0,0">
+
+            <Label Content="Wine name:" Padding="10" FontStyle="Italic" />
+            <TextBox Text="{Binding SelectedFromListbox.Name}" Background="Transparent" Padding="10" BorderThickness="0,1,0,1" />
+            <Label Content="Wine year:" Padding="10" FontStyle="Italic" />
+            <TextBox Text="{Binding SelectedFromListbox.Year}" Background="Transparent" Padding="10" BorderThickness="0,1,0,1" />
+            <Label Content="Wine price:" Padding="10" FontStyle="Italic" />
+            <TextBox Text="{Binding SelectedFromListbox.Price}" Background="Transparent" Padding="10" BorderThickness="0,1,0,1" />
+            <Label Content="Wines's winery id:" Padding="10" FontStyle="Italic" />
+            <TextBox Text="{Binding SelectedFromListbox.WineryId}" Background="Transparent" Padding="10" BorderThickness="0,1,0,1"  />
+            <Label Content="Wine type (Rozé/White/Red):" Padding="10" FontStyle="Italic" />
+            <TextBox Text="{Binding SelectedFromListbox.Type}" Background="Transparent" Padding="10" BorderThickness="0,1,0,1" Margin="0,0,0,40"/>
             
+            <Button Content="Create wine" Padding="10" Command="{Binding CreateWineCommand}" Background="Transparent" BorderThickness="0,0,0,0"/>
+            <Button Content="Delete wine" Padding="10" Command="{Binding DeleteWineCommand}" Background="Transparent" BorderThickness="0,0,0,0"/>
+            <Button Content="Update wine" Padding="10" Command="{Binding UpdateWineCommand}" Background="Transparent" BorderThickness="0,0,0,0"/>
+        </StackPanel>
+        <ListBox Grid.Column="1" FontStyle="Italic" ItemsSource="{Binding Wines}" SelectedItem="{Binding SelectedFromListbox}" BorderThickness="0,0,0,0">            
             <ListBox.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="White" Offset="1"/>

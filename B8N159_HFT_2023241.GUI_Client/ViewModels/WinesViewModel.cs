@@ -1,5 +1,7 @@
 ﻿using B8N159_HFT_2023241.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,12 +9,45 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Xml.Linq;
 
 namespace B8N159_HFT_2023241.GUI_Client.ViewModels
 {
     public class WinesViewModel : ObservableRecipient
     {
         public RestCollection<Wine> Wines { get; set; }
+
+        public RelayCommand CreateWineCommand { get; set; }
+        public RelayCommand UpdateWineCommand { get; set; }
+        public RelayCommand DeleteWineCommand { get; set; }
+
+        private Wine selectedFromListbox;
+
+        public Wine SelectedFromListbox
+        {
+            get { return selectedFromListbox; }
+            set
+            {
+                if (value != null)
+                {
+                    selectedFromListbox = new Wine()
+                    {
+                        WineId = value.WineId,
+                        Name = value.Name,
+                        Year = value.Year,
+                        Type = value.Type,
+                        Price = value.Price,
+                        WineryId = value.WineryId,
+                        IsCheap = value.IsCheap,
+                        Awards = value.Awards,
+                        Winery = value.Winery
+                    };                        
+                }
+                OnPropertyChanged();
+                (DeleteWineCommand as RelayCommand).NotifyCanExecuteChanged();                
+            }
+        }
+
         private static bool IsInDesignMode
         {
             get
@@ -25,7 +60,36 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
         {
             if (!IsInDesignMode)
             {
-                Wines = new RestCollection<Wine>("http://localhost:5874/", "wine");
+                Wines = new RestCollection<Wine>("http://localhost:5874/", "wine", "hub");
+
+                CreateWineCommand = new RelayCommand(() =>
+                {
+                    Wines.Add(new Wine() 
+                    {
+                        Name = SelectedFromListbox.Name,
+                        Year = SelectedFromListbox.Year,
+                        Type = SelectedFromListbox.Type,
+                        Price = SelectedFromListbox.Price,
+                        WineryId = SelectedFromListbox.WineryId
+                    });
+                });
+
+                DeleteWineCommand = new RelayCommand(() =>
+                {
+                    Wines.Delete(SelectedFromListbox.WineId);
+                },
+                () =>
+                {
+                    return SelectedFromListbox != null;
+                }
+                );
+
+                UpdateWineCommand = new RelayCommand(() =>
+                {
+                    Wines.Update(SelectedFromListbox);
+                });
+
+                SelectedFromListbox = new Wine();
             }
         }
     }

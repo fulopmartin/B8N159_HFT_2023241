@@ -1,3 +1,4 @@
+using B8N159_HFT_2023241.Endpoint.Services;
 using B8N159_HFT_2023241.Logic;
 using B8N159_HFT_2023241.Models;
 using B8N159_HFT_2023241.Repository;
@@ -35,6 +36,7 @@ namespace B8N159_HFT_2023241.Endpoint
             services.AddTransient<IWineLogic, WineLogic>();
             services.AddTransient<IWineryLogic, WineryLogic>();
 
+            services.AddSignalR();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -69,6 +71,7 @@ namespace B8N159_HFT_2023241.Endpoint
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<SignalRHub>("hub");
             });
         }
     }

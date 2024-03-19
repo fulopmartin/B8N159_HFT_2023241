@@ -54,7 +54,7 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
         {
             if (!IsInDesignMode)
             {
-                Wineries = new RestCollection<Winery>("http://localhost:5874/", "winery");
+                Wineries = new RestCollection<Winery>("http://localhost:5874/", "winery", "hub");
 
                 CreateWineryCommand = new RelayCommand(() =>
                 {
