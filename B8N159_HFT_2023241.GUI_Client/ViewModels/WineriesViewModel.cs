@@ -1,5 +1,6 @@
 ﻿using B8N159_HFT_2023241.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +14,34 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
     public class WineriesViewModel : ObservableRecipient
     {
         public RestCollection<Winery> Wineries { get; set; }
+
+
+        public RelayCommand CreateWineryCommand { get; set; }
+        public RelayCommand UpdateWineryCommand { get; set; }
+        public RelayCommand DeleteWineryCommand { get; set; }
+
+        private Winery selectedFromListbox;
+
+        public Winery SelectedFromListbox
+        {
+            get { return selectedFromListbox; }
+            set
+            {
+                if (value != null)
+                {
+                    selectedFromListbox = new Winery()
+                    {
+                        WineryId = value.WineryId,
+                        Name = value.Name,
+                        Zipcode = value.Zipcode,
+                        Wines = value.Wines
+                    };
+                    OnPropertyChanged();
+                    (DeleteWineryCommand as RelayCommand).NotifyCanExecuteChanged();
+
+                }
+            }
+        }
         private static bool IsInDesignMode
         {
             get
@@ -26,6 +55,32 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
             if (!IsInDesignMode)
             {
                 Wineries = new RestCollection<Winery>("http://localhost:5874/", "winery");
+
+                CreateWineryCommand = new RelayCommand(() =>
+                {
+                    Wineries.Add(new Winery
+                    {
+                        Name = SelectedFromListbox.Name,
+                        Zipcode = SelectedFromListbox.Zipcode                        
+                    });
+                });
+
+                DeleteWineryCommand = new RelayCommand(() =>
+                {
+                    Wineries.Delete(SelectedFromListbox.WineryId);
+                },
+                () =>
+                {
+                    return SelectedFromListbox != null;
+                }
+                );
+
+                UpdateWineryCommand = new RelayCommand(() =>
+                {
+                    Wineries.Update(SelectedFromListbox);
+                });
+
+                SelectedFromListbox = new Winery();
             }
         }
     }
