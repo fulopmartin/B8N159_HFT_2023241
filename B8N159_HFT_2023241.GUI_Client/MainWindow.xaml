@@ -4,9 +4,47 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:B8N159_HFT_2023241.GUI_Client"
+        xmlns:uc="clr-namespace:B8N159_HFT_2023241.GUI_Client.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Wineries and Wines" Height="450" Width="800">
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
+    <Grid Background="IndianRed">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="8*"/>
+        </Grid.RowDefinitions>
+        <Grid HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>        
+            <Label Content="Wineries and wines" Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="40" FontWeight="Bold" FontStyle="Italic"/>
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Button Content="Awards" Grid.Column="0" FontSize="20" Background="IndianRed" Command="{Binding AwardCommand}" BorderThickness="0,0,0,0" FontStyle="Italic" />
+                <Button Content="Wines" Grid.Column="1" FontSize="20" Background="IndianRed" Command="{Binding WinesCommand}" BorderThickness="0,0,0,0" FontStyle="Italic"/>
+                <Button Content="Wineries" Grid.Column="2" FontSize="20" Background="IndianRed" Command="{Binding WineriesCommand}" BorderThickness="0,0,0,0" FontStyle="Italic"/>
+                <Button Content="NonCruds" Grid.Column="3" FontSize="20" Background="IndianRed" Command="{Binding NonCrudsCommand}" BorderThickness="0,0,0,0" FontStyle="Italic"/>
+            </Grid>
+        
+        
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="1"/>
+                    <GradientStop Color="#FFCD5C5A" Offset="0"/>
+                </LinearGradientBrush>
+            </Grid.Background>    
+            <UserControl Content="{Binding SelectedControl}" />            
+        </Grid>
 
     </Grid>
 </Window>

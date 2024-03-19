@@ -13,16 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace B8N159_HFT_2023241.GUI_Client
+namespace B8N159_HFT_2023241.GUI_Client.Controls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AwardsUserControl.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AwardsUserControl : UserControl
     {
-        public MainWindow()
+        public AwardsUserControl()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
         
     }
