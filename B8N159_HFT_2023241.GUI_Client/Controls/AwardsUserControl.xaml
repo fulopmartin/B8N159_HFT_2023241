@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:B8N159_HFT_2023241.GUI_Client.Controls"
              xmlns:vm="clr-namespace:B8N159_HFT_2023241.GUI_Client.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" FontSize="14">
     <UserControl.DataContext>
         <vm:AwardsViewModel/>
     </UserControl.DataContext>
@@ -22,8 +22,18 @@
                     <GradientStop Color="#FFCD5C5A" Offset="0"/>
                 </LinearGradientBrush>
             </StackPanel.Background>
+            <Label Content="Award name:" Padding="10" FontStyle="Italic" />
+            <TextBox Text="{Binding SelectedFromListbox.AwardName}" Background="Transparent" Padding="10" BorderThickness="0,1,0,1" />
+            <Label Content="Award year:" Padding="10" FontStyle="Italic" />
+            <TextBox Text="{Binding SelectedFromListbox.AwardYear}" Background="Transparent" Padding="10" BorderThickness="0,1,0,1" />
+            <Label Content="Award's wine id:" Padding="10" FontStyle="Italic" />
+            <TextBox Text="{Binding SelectedFromListbox.WineId}" Background="Transparent" Padding="10" BorderThickness="0,1,0,1" />
+            <CheckBox Content="Is it domestic?" IsChecked="{Binding SelectedFromListbox.IsDomestic}" Padding="10" VerticalContentAlignment="Center" BorderThickness="0,1,0,1" Margin="10,0,0,40"/>
+            <Button Content="Create award" Padding="10" Command="{Binding CreateAwardCommand}" Background="Transparent" BorderThickness="0,0,0,0"/>
+            <Button Content="Delete award" Padding="10" Command="{Binding DeleteAwardCommand}" Background="Transparent" BorderThickness="0,0,0,0"/>
+            <Button Content="Update award" Padding="10" Command="{Binding UpdateAwardCommand}" Background="Transparent" BorderThickness="0,0,0,0"/>
         </StackPanel>
-        <ListBox Grid.Column="1" FontSize="12" FontStyle="Italic" ItemsSource="{Binding Awards }" BorderThickness="0,0,0,0">
+        <ListBox Grid.Column="1" FontStyle="Italic" ItemsSource="{Binding Awards }" SelectedItem="{Binding SelectedFromListbox}" BorderThickness="0,0,0,0">
             <ListBox.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="White" Offset="1"/>
@@ -32,7 +42,7 @@
             </ListBox.Background>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding AwardName}"/>
+                    <Label Content="{Binding AwardName}" Padding="10"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

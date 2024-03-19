@@ -31,7 +31,6 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
         public RelayCommand AwardCommand { get; set; }
         public RelayCommand WinesCommand { get; set; }
         public RelayCommand WineriesCommand { get; set; }
-        public RelayCommand NonCrudsCommand { get; set; }
 
 
         private static bool IsInDesignMode
@@ -53,7 +52,7 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
                 AwardsUserControl awardsControl = new AwardsUserControl();
                 WinesUserControl winesControl = new WinesUserControl();
                 WineriesUserControl wineriesControl = new WineriesUserControl();
-                NonCrudsUserControl nonCrudsControl = new NonCrudsUserControl();
+                
 
 
                 AwardCommand = new RelayCommand(() =>
@@ -67,11 +66,7 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
                 WineriesCommand = new RelayCommand(() =>
                 {
                     SelectedControl = wineriesControl;
-                });
-                NonCrudsCommand = new RelayCommand(() =>
-                {
-                    SelectedControl = nonCrudsControl;
-                });
+                });                
 
             }
         }
