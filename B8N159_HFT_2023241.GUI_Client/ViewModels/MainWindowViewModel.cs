@@ -21,11 +21,7 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
         {
             get { return selectedControl; }
             set { SetProperty(ref selectedControl, value); }
-        }
-        //RestCollections
-        
-        public RestCollection<Wine> Wines {  get; set; }
-        public RestCollection<Winery> Wineries {  get; set; }
+        }        
 
         //Commands
         public RelayCommand AwardCommand { get; set; }
@@ -44,16 +40,10 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
         public MainWindowViewModel()
         {
             if (!IsInDesignMode)
-            {
-                
-                Wines = new RestCollection<Wine>("http://localhost:5874/", "wine");
-                Wineries = new RestCollection<Winery>("http://localhost:5874/", "winery");
-
+            {     
                 AwardsUserControl awardsControl = new AwardsUserControl();
                 WinesUserControl winesControl = new WinesUserControl();
                 WineriesUserControl wineriesControl = new WineriesUserControl();
-                
-
 
                 AwardCommand = new RelayCommand(() =>
                 {
@@ -66,8 +56,7 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
                 WineriesCommand = new RelayCommand(() =>
                 {
                     SelectedControl = wineriesControl;
-                });                
-
+                });
             }
         }
     }
