@@ -1,0 +1,9 @@
+﻿<Application x:Class="B8N159_HFT_2023241.GUI_Client.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:B8N159_HFT_2023241.GUI_Client"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
