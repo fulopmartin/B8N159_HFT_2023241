@@ -7,9 +7,9 @@ namespace B8N159_HFT_2023241.Models
 {
     public enum WineType
     {
-        Red = 1,
-        White = 2,
-        Rozé = 3
+        Red = 0,
+        White = 1,
+        Rozé = 2
     };
     public class Wine
     {
