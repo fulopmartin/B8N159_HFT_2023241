@@ -57,20 +57,36 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
             {
                 Awards = new RestCollection<Award>("http://localhost:5874/", "award","hub");
 
-                CreateAwardCommand = new RelayCommand(() =>
+                CreateAwardCommand = new RelayCommand(async () =>
                 {
-                    Awards.Add(new Award
+                    try
                     {
-                        AwardName = SelectedFromListbox.AwardName,
-                        AwardYear = SelectedFromListbox.AwardYear,
-                        WineId = SelectedFromListbox.WineId,
-                        IsDomestic = SelectedFromListbox.IsDomestic
-                    });
+                        await Awards.Add(new Award
+                        {
+                            AwardName = SelectedFromListbox.AwardName,
+                            AwardYear = SelectedFromListbox.AwardYear,
+                            WineId = SelectedFromListbox.WineId,
+                            IsDomestic = SelectedFromListbox.IsDomestic
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    
                 });
 
-                DeleteAwardCommand = new RelayCommand(() =>
+                DeleteAwardCommand = new RelayCommand(async () =>
                 {
-                    Awards.Delete(SelectedFromListbox.AwardId);
+                    try
+                    {
+                        await Awards.Delete(SelectedFromListbox.AwardId);                       
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 },
                 () =>
                 {
@@ -78,9 +94,17 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
                 }
                 );
 
-                UpdateAwardCommand = new RelayCommand(() =>
-                {                    
-                     Awards.Update(SelectedFromListbox);                  
+                UpdateAwardCommand = new RelayCommand(async () =>
+                {
+                    try
+                    {
+                        await Awards.Update(SelectedFromListbox);                  
+
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 });
 
                 SelectedFromListbox = new Award();

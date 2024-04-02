@@ -58,18 +58,26 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
 
                 CreateWineryCommand = new RelayCommand(async() =>
                 {
-                    await Wineries.Add(new Winery
+                    try
                     {
-                        Name = SelectedFromListbox.Name,
-                        Zipcode = SelectedFromListbox.Zipcode                        
-                    });
+                        await Wineries.Add(new Winery
+                        {
+                            Name = SelectedFromListbox.Name,
+                            Zipcode = SelectedFromListbox.Zipcode
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
                 });
 
-                DeleteWineryCommand = new RelayCommand(async() =>
+                DeleteWineryCommand = new RelayCommand( async() =>
                 {
                     try
                     {
-                        await Wineries.Delete(SelectedFromListbox.WineryId);
+                        await Wineries.Delete(SelectedFromListbox.WineryId);                     
                     }
                     catch (Exception ex)
                     {
@@ -85,7 +93,15 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
 
                 UpdateWineryCommand = new RelayCommand(async() =>
                 {
-                    await Wineries.Update(SelectedFromListbox);
+                    try
+                    {
+                        await Wineries.Update(SelectedFromListbox);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 });
 
                 SelectedFromListbox = new Winery();

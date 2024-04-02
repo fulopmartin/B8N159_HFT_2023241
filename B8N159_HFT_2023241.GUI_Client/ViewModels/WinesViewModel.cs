@@ -43,8 +43,7 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
                         Winery = value.Winery
                     };                        
                 }
-                OnPropertyChanged();
-                (UpdateWineCommand as RelayCommand).NotifyCanExecuteChanged();
+                OnPropertyChanged();                
                 (DeleteWineCommand as RelayCommand).NotifyCanExecuteChanged();                
             }
         }
@@ -65,17 +64,26 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
 
                 CreateWineCommand = new RelayCommand(async() =>
                 {
-                    await Wines.Add(new Wine() 
+                    try
                     {
-                        Name = SelectedFromListbox.Name,
-                        Year = SelectedFromListbox.Year,
-                        Type = SelectedFromListbox.Type,
-                        Price = SelectedFromListbox.Price,
-                        WineryId = SelectedFromListbox.WineryId
-                    });
+                        await Wines.Add(new Wine()
+                        {
+                            Name = SelectedFromListbox.Name,
+                            Year = SelectedFromListbox.Year,
+                            Type = SelectedFromListbox.Type,
+                            Price = SelectedFromListbox.Price,
+                            WineryId = SelectedFromListbox.WineryId
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                       
+                    }
+                    
                 });
 
-                DeleteWineCommand = new RelayCommand(async() =>
+                DeleteWineCommand = new RelayCommand( async() =>
                 {
                     try
                     {
@@ -94,7 +102,15 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
 
                 UpdateWineCommand = new RelayCommand(async() =>
                 {
-                    await Wines.Update(SelectedFromListbox);
+                    try
+                    {
+                        await Wines.Update(SelectedFromListbox);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 });
 
                 SelectedFromListbox = new Wine();

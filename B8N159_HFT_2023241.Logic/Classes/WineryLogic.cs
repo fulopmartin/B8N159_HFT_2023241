@@ -17,9 +17,9 @@ namespace B8N159_HFT_2023241.Logic
 
         public void Create(Winery item)
         {
-            if(item == null)
+            if(item.Name == null || item.Zipcode == 0)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentException("Name or zipcode cannot be empty");
             }
             this.repo.Create(item);
         }
@@ -27,7 +27,7 @@ namespace B8N159_HFT_2023241.Logic
         public void Delete(int id)
         {
             var delitem = this.repo.Read(id);
-            if( delitem == null)
+            if(delitem == null)
             {
                 throw new ArgumentException("The winery does not exist!");
             }
