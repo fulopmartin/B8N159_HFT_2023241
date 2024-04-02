@@ -346,15 +346,15 @@ namespace B8N159_HFT_2023241.GUI_Client
             else return new List<T>().GetEnumerator();
         }
 
-        public void Add(T item)
+        public async Task Add(T item)
         {
             if (hasSignalR)
             {
-                this.rest.PostAsync(item, typeof(T).Name);
+                await this.rest.PostAsync(item, typeof(T).Name);
             }
             else
             {
-                this.rest.PostAsync(item, typeof(T).Name).ContinueWith((t) =>
+                await this.rest.PostAsync(item, typeof(T).Name).ContinueWith((t) =>
                 {
                     Init().ContinueWith(z =>
                     {
@@ -368,16 +368,16 @@ namespace B8N159_HFT_2023241.GUI_Client
 
         }
 
-        public void Update(T item)
+        public async Task Update(T item)
         {
             if (hasSignalR)
             {
-                this.rest.PutAsync(item, typeof(T).Name);
+                await this.rest.PutAsync(item, typeof(T).Name);
             }
             else
             {
-                this.rest.PutAsync(item, typeof(T).Name).ContinueWith((t) =>
-                {
+                await this.rest.PutAsync(item, typeof(T).Name).ContinueWith((t) =>
+                { 
                     Init().ContinueWith(z =>
                     {
                         Application.Current.Dispatcher.Invoke(() =>
@@ -389,15 +389,15 @@ namespace B8N159_HFT_2023241.GUI_Client
             }
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
             if (hasSignalR)
             {
-                this.rest.DeleteAsync(id, typeof(T).Name);
+                await this.rest.DeleteAsync(id, typeof(T).Name);
             }
             else
             {
-                this.rest.DeleteAsync(id, typeof(T).Name).ContinueWith((t) =>
+                await this.rest.DeleteAsync(id, typeof(T).Name).ContinueWith((t) =>
                 {
                     Init().ContinueWith(z =>
                     {

@@ -44,6 +44,7 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
                     };                        
                 }
                 OnPropertyChanged();
+                (UpdateWineCommand as RelayCommand).NotifyCanExecuteChanged();
                 (DeleteWineCommand as RelayCommand).NotifyCanExecuteChanged();                
             }
         }
@@ -62,9 +63,9 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
             {
                 Wines = new RestCollection<Wine>("http://localhost:5874/", "wine", "hub");
 
-                CreateWineCommand = new RelayCommand(() =>
+                CreateWineCommand = new RelayCommand(async() =>
                 {
-                    Wines.Add(new Wine() 
+                    await Wines.Add(new Wine() 
                     {
                         Name = SelectedFromListbox.Name,
                         Year = SelectedFromListbox.Year,
@@ -74,9 +75,16 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
                     });
                 });
 
-                DeleteWineCommand = new RelayCommand(() =>
+                DeleteWineCommand = new RelayCommand(async() =>
                 {
-                    Wines.Delete(SelectedFromListbox.WineId);
+                    try
+                    {
+                        await Wines.Delete(SelectedFromListbox.WineId);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message,"Error",MessageBoxButton.OK,MessageBoxImage.Error);
+                    }
                 },
                 () =>
                 {
@@ -84,9 +92,9 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
                 }
                 );
 
-                UpdateWineCommand = new RelayCommand(() =>
+                UpdateWineCommand = new RelayCommand(async() =>
                 {
-                    Wines.Update(SelectedFromListbox);
+                    await Wines.Update(SelectedFromListbox);
                 });
 
                 SelectedFromListbox = new Wine();

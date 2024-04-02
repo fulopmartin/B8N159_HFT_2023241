@@ -26,6 +26,17 @@ namespace B8N159_HFT_2023241.Logic
 
         public void Delete(int id)
         {
+            var delitem = this.repo.Read(id);
+            if( delitem == null )
+            {
+                throw new ArgumentException("The wine does not exist!");
+            }
+
+            if( delitem.Awards.Count > 0 )
+            {
+                throw new ArgumentException("There are awards attached to this wine");
+            }
+
             this.repo.Delete(id);
         }
 

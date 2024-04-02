@@ -56,18 +56,26 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
             {
                 Wineries = new RestCollection<Winery>("http://localhost:5874/", "winery", "hub");
 
-                CreateWineryCommand = new RelayCommand(() =>
+                CreateWineryCommand = new RelayCommand(async() =>
                 {
-                    Wineries.Add(new Winery
+                    await Wineries.Add(new Winery
                     {
                         Name = SelectedFromListbox.Name,
                         Zipcode = SelectedFromListbox.Zipcode                        
                     });
                 });
 
-                DeleteWineryCommand = new RelayCommand(() =>
+                DeleteWineryCommand = new RelayCommand(async() =>
                 {
-                    Wineries.Delete(SelectedFromListbox.WineryId);
+                    try
+                    {
+                        await Wineries.Delete(SelectedFromListbox.WineryId);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    
                 },
                 () =>
                 {
@@ -75,9 +83,9 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
                 }
                 );
 
-                UpdateWineryCommand = new RelayCommand(() =>
+                UpdateWineryCommand = new RelayCommand(async() =>
                 {
-                    Wineries.Update(SelectedFromListbox);
+                    await Wineries.Update(SelectedFromListbox);
                 });
 
                 SelectedFromListbox = new Winery();
