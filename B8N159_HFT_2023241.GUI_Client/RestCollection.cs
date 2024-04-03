@@ -70,8 +70,15 @@ namespace B8N159_HFT_2023241.GUI_Client
             }
             else
             {
-                var error = await response.Content.ReadAsAsync<RestExceptionInfo>();
-                throw new ArgumentException(error.Msg);
+                if (response.StatusCode == HttpStatusCode.InternalServerError)
+                {
+                    var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                    throw new ArgumentException(error.Msg);
+                }
+                else
+                {
+                    throw new ArgumentException(response.StatusCode.ToString());
+                }
             }
             return items;
         }
@@ -86,8 +93,15 @@ namespace B8N159_HFT_2023241.GUI_Client
             }
             else
             {
-                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
-                throw new ArgumentException(error.Msg);
+                if (response.StatusCode == HttpStatusCode.InternalServerError)
+                {
+                    var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                    throw new ArgumentException(error.Msg);
+                }
+                else
+                {
+                    throw new ArgumentException(response.StatusCode.ToString());
+                }
             }
             return items;
         }
@@ -102,8 +116,15 @@ namespace B8N159_HFT_2023241.GUI_Client
             }
             else
             {
-                var error = await response.Content.ReadAsAsync<RestExceptionInfo>();
-                throw new ArgumentException(error.Msg);
+                if (response.StatusCode == HttpStatusCode.InternalServerError)
+                {
+                    var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                    throw new ArgumentException(error.Msg);
+                }
+                else
+                {
+                    throw new ArgumentException(response.StatusCode.ToString());
+                }
             }
             return item;
         }
@@ -118,8 +139,15 @@ namespace B8N159_HFT_2023241.GUI_Client
             }
             else
             {
-                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
-                throw new ArgumentException(error.Msg);
+                if (response.StatusCode == HttpStatusCode.InternalServerError)
+                {
+                    var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                    throw new ArgumentException(error.Msg);
+                }
+                else
+                {
+                    throw new ArgumentException(response.StatusCode.ToString());
+                }
             }
             return item;
         }
@@ -134,8 +162,15 @@ namespace B8N159_HFT_2023241.GUI_Client
             }
             else
             {
-                var error = await response.Content.ReadAsAsync<RestExceptionInfo>();
-                throw new ArgumentException(error.Msg);
+                if (response.StatusCode == HttpStatusCode.InternalServerError)
+                {
+                    var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                    throw new ArgumentException(error.Msg);
+                }
+                else
+                {
+                    throw new ArgumentException(response.StatusCode.ToString());
+                }
             }
             return item;
         }
@@ -150,8 +185,15 @@ namespace B8N159_HFT_2023241.GUI_Client
             }
             else
             {
-                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
-                throw new ArgumentException(error.Msg);
+                if (response.StatusCode == HttpStatusCode.InternalServerError)
+                {
+                    var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                    throw new ArgumentException(error.Msg);
+                }
+                else
+                {
+                    throw new ArgumentException(response.StatusCode.ToString());
+                }
             }
             return item;
         }
@@ -163,8 +205,15 @@ namespace B8N159_HFT_2023241.GUI_Client
 
             if (!response.IsSuccessStatusCode)
             {
-                var error = await response.Content.ReadAsAsync<RestExceptionInfo>();
-                throw new ArgumentException(error.Msg);
+                if (response.StatusCode == HttpStatusCode.InternalServerError)
+                {
+                    var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                    throw new ArgumentException(error.Msg);
+                }
+                else
+                {
+                    throw new ArgumentException(response.StatusCode.ToString());
+                }
             }
             response.EnsureSuccessStatusCode();
         }
@@ -176,8 +225,15 @@ namespace B8N159_HFT_2023241.GUI_Client
 
             if (!response.IsSuccessStatusCode)
             {
-                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
-                throw new ArgumentException(error.Msg);
+                if (response.StatusCode == HttpStatusCode.InternalServerError)
+                {
+                    var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                    throw new ArgumentException(error.Msg);
+                }
+                else
+                {
+                    throw new ArgumentException(response.StatusCode.ToString());
+                }
             }
             response.EnsureSuccessStatusCode();
         }
@@ -189,8 +245,15 @@ namespace B8N159_HFT_2023241.GUI_Client
 
             if (!response.IsSuccessStatusCode)
             {
-                var error = await response.Content.ReadAsAsync<RestExceptionInfo>();
-                throw new ArgumentException(error.Msg);
+                if (response.StatusCode == HttpStatusCode.InternalServerError)
+                {
+                    var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                    throw new ArgumentException(error.Msg);
+                }
+                else
+                {
+                    throw new ArgumentException(response.StatusCode.ToString());
+                }
             }
 
             response.EnsureSuccessStatusCode();
@@ -203,8 +266,15 @@ namespace B8N159_HFT_2023241.GUI_Client
 
             if (!response.IsSuccessStatusCode)
             {
-                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
-                throw new ArgumentException(error.Msg);
+                if (response.StatusCode == HttpStatusCode.InternalServerError)
+                {
+                    var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                    throw new ArgumentException(error.Msg);
+                }
+                else
+                {
+                    throw new ArgumentException(response.StatusCode.ToString());
+                }
             }
 
             response.EnsureSuccessStatusCode();
@@ -217,8 +287,15 @@ namespace B8N159_HFT_2023241.GUI_Client
 
             if (!response.IsSuccessStatusCode)
             {
-                var error = await response.Content.ReadAsAsync<RestExceptionInfo>();
-                throw new ArgumentException(error.Msg);
+                if (response.StatusCode == HttpStatusCode.InternalServerError)
+                {
+                    var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                    throw new ArgumentException(error.Msg);
+                }
+                else
+                {
+                    throw new ArgumentException(response.StatusCode.ToString());
+                }
             }
 
             response.EnsureSuccessStatusCode();
@@ -231,8 +308,15 @@ namespace B8N159_HFT_2023241.GUI_Client
 
             if (!response.IsSuccessStatusCode)
             {
-                var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
-                throw new ArgumentException(error.Msg);
+                if (response.StatusCode == HttpStatusCode.InternalServerError)
+                {
+                    var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
+                    throw new ArgumentException(error.Msg);
+                }
+                else
+                {
+                    throw new ArgumentException(response.StatusCode.ToString());
+                }
             }
 
             response.EnsureSuccessStatusCode();
@@ -377,7 +461,7 @@ namespace B8N159_HFT_2023241.GUI_Client
             else
             {
                 await this.rest.PutAsync(item, typeof(T).Name).ContinueWith((t) =>
-                { 
+                {
                     Init().ContinueWith(z =>
                     {
                         Application.Current.Dispatcher.Invoke(() =>
@@ -410,7 +494,7 @@ namespace B8N159_HFT_2023241.GUI_Client
             }
 
         }
-        
+
 
     }
 }

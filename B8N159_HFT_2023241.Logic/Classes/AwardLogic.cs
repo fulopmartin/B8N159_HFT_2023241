@@ -16,15 +16,20 @@ namespace B8N159_HFT_2023241.Logic
 
         public void Create(Award item)
         {
-            if (item.AwardName == null)
+            if (item.AwardName == null || item.AwardName == "" || item.AwardYear == 0 || item.WineId == 0)
             {
-                throw new ArgumentException("Name can't be empty");
+                throw new ArgumentException("There is an empty field");
             }
             this.repo.Create(item);
         }
 
         public void Delete(int id)
         {
+            var delitem = this.repo.Read(id);
+            if (delitem == null)
+            {
+                throw new ArgumentException("Award does not exist!");
+            }
             this.repo.Delete(id);
         }
 
@@ -45,6 +50,10 @@ namespace B8N159_HFT_2023241.Logic
 
         public void Update(Award item)
         {
+            if (item.AwardName == null || item.AwardName == "" || item.AwardYear == 0 || item.WineId == 0)
+            {
+                throw new ArgumentException("There is an empty field");
+            }
             this.repo.Update(item);
         }
     }

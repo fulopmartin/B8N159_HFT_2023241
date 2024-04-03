@@ -17,7 +17,7 @@ namespace B8N159_HFT_2023241.Logic
 
         public void Create(Winery item)
         {
-            if(item.Name == null || item.Zipcode == 0)
+            if(item.Name == null || item.Name == "" || item.Zipcode == 0)
             {
                 throw new ArgumentException("Name or zipcode cannot be empty");
             }
@@ -29,7 +29,7 @@ namespace B8N159_HFT_2023241.Logic
             var delitem = this.repo.Read(id);
             if(delitem == null)
             {
-                throw new ArgumentException("The winery does not exist!");
+                throw new ArgumentException("Winery does not exist!");
             }
 
             if(delitem.Wines.Count > 0)
@@ -57,6 +57,10 @@ namespace B8N159_HFT_2023241.Logic
 
         public void Update(Winery item)
         {
+            if (item.Name == null || item.Name == "" || item.Zipcode == 0)
+            {
+                throw new ArgumentException("Name or zipcode cannot be empty");
+            }
             this.repo.Update(item);
         }
         //non-cruds

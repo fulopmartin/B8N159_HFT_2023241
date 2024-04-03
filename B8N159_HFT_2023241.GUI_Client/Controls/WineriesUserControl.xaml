@@ -22,9 +22,9 @@
                     <GradientStop Color="#FFCD5C5A" Offset="0"/>
                 </LinearGradientBrush>
             </StackPanel.Background>
-            <Label Content="Winery name:" Padding="10" FontStyle="Italic" />
+            <Label Content="Winery name:*" Padding="10" FontStyle="Italic" />
             <TextBox Text="{Binding SelectedFromListbox.Name}" Background="Transparent" Padding="10" BorderThickness="0,1,0,1" />
-            <Label Content="Winery zipcode:" Padding="10" FontStyle="Italic" />
+            <Label Content="Winery zipcode:*" Padding="10" FontStyle="Italic" />
             <TextBox Text="{Binding SelectedFromListbox.Zipcode}" Background="Transparent" Padding="10" BorderThickness="0,1,0,1" Margin="0,0,0,40" />
             <Button Content="Create winery" Padding="10" Command="{Binding CreateWineryCommand}" Background="Transparent" BorderThickness="0,0,0,0"/>
             <Button Content="Delete winery" Padding="10" Command="{Binding DeleteWineryCommand}" Background="Transparent" BorderThickness="0,0,0,0"/>

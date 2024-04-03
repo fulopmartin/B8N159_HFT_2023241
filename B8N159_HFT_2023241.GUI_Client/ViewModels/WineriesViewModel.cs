@@ -56,7 +56,7 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
             {
                 Wineries = new RestCollection<Winery>("http://localhost:5874/", "winery", "hub");
 
-                CreateWineryCommand = new RelayCommand(async() =>
+                CreateWineryCommand = new RelayCommand( async() =>
                 {
                     try
                     {
@@ -91,7 +91,7 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
                 }
                 );
 
-                UpdateWineryCommand = new RelayCommand(async() =>
+                UpdateWineryCommand = new RelayCommand( async() =>
                 {
                     try
                     {
@@ -102,6 +102,10 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
                     {
                         MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
+                },
+                () => 
+                { 
+                    return SelectedFromListbox != null; 
                 });
 
                 SelectedFromListbox = new Winery();

@@ -22,11 +22,11 @@
                     <GradientStop Color="#FFCD5C5A" Offset="0"/>
                 </LinearGradientBrush>
             </StackPanel.Background>
-            <Label Content="Award name:" Padding="10" FontStyle="Italic" />
+            <Label Content="Award name:*" Padding="10" FontStyle="Italic" />
             <TextBox Text="{Binding SelectedFromListbox.AwardName}" Background="Transparent" Padding="10" BorderThickness="0,1,0,1" />
-            <Label Content="Award year:" Padding="10" FontStyle="Italic" />
+            <Label Content="Award year:*" Padding="10" FontStyle="Italic" />
             <TextBox Text="{Binding SelectedFromListbox.AwardYear}" Background="Transparent" Padding="10" BorderThickness="0,1,0,1" />
-            <Label Content="Award's wine id:" Padding="10" FontStyle="Italic" />
+            <Label Content="Award's wine id:*" Padding="10" FontStyle="Italic" />
             <TextBox Text="{Binding SelectedFromListbox.WineId}" Background="Transparent" Padding="10" BorderThickness="0,1,0,1" />
             <CheckBox Content="Is it domestic?" IsChecked="{Binding SelectedFromListbox.IsDomestic}" Padding="10" VerticalContentAlignment="Center" BorderThickness="0,1,0,1" Margin="10,0,0,40"/>
             <Button Content="Create award" Padding="10" Command="{Binding CreateAwardCommand}" Background="Transparent" BorderThickness="0,0,0,0"/>

@@ -58,7 +58,7 @@ namespace B8N159_HFT_2023241.Endpoint.Controllers
         {
             var wineryToDelete = this.logic.Read(id);
             this.logic.Delete(id);
-            this.hub.Clients.All.SendAsync("WineryDeletedd", wineryToDelete);
+            this.hub.Clients.All.SendAsync("WineryDeleted", wineryToDelete);
         }
     }
 }

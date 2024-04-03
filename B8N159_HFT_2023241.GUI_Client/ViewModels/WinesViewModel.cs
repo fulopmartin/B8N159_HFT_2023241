@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ using System.Windows;
 using System.Xml.Linq;
 
 namespace B8N159_HFT_2023241.GUI_Client.ViewModels
-{
+{ 
     public class WinesViewModel : ObservableRecipient
     {
         public RestCollection<Wine> Wines { get; set; }
@@ -47,6 +48,7 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
                 (DeleteWineCommand as RelayCommand).NotifyCanExecuteChanged();                
             }
         }
+        
 
         private static bool IsInDesignMode
         {
@@ -60,7 +62,7 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
         {
             if (!IsInDesignMode)
             {
-                Wines = new RestCollection<Wine>("http://localhost:5874/", "wine", "hub");
+                Wines = new RestCollection<Wine>("http://localhost:5874/", "wine", "hub");               
 
                 CreateWineCommand = new RelayCommand(async() =>
                 {
@@ -111,6 +113,10 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
                     {
                         MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
+                },
+                () =>
+                {
+                    return SelectedFromListbox != null;
                 });
 
                 SelectedFromListbox = new Wine();

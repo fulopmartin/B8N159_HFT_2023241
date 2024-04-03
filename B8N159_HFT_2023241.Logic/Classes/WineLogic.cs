@@ -17,22 +17,23 @@ namespace B8N159_HFT_2023241.Logic
 
         public void Create(Wine item)
         {
-            if (item == null)
+            if (item.Name == null || item.Name == "" || item.Year == 0 || item.WineryId == 0 || item.Price == 0)
             {
-                throw new ArgumentNullException("Item is empty");
+                throw new ArgumentException("There is an empty field");
             }
+            
             this.repo.Create(item);
         }
 
         public void Delete(int id)
         {
             var delitem = this.repo.Read(id);
-            if( delitem == null )
+            if(delitem == null)
             {
-                throw new ArgumentException("The wine does not exist!");
+                throw new ArgumentException("Wine does not exist!");
             }
 
-            if( delitem.Awards.Count > 0 )
+            if(delitem.Awards.Count > 0)
             {
                 throw new ArgumentException("There are awards attached to this wine");
             }
@@ -57,6 +58,10 @@ namespace B8N159_HFT_2023241.Logic
 
         public void Update(Wine item)
         {
+            if (item.Name == "" || item.Year == 0 || item.WineryId == 0 || item.Price == 0)
+            {
+                throw new ArgumentException("There is an empty field");
+            }
             this.repo.Update(item);
         }
 

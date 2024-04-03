@@ -23,13 +23,13 @@
                 </LinearGradientBrush>
             </StackPanel.Background>
 
-            <Label Content="Wine name:" Padding="10" FontStyle="Italic" />
+            <Label Content="Wine name:*" Padding="10" FontStyle="Italic" />
             <TextBox Text="{Binding SelectedFromListbox.Name}" Background="Transparent" Padding="10" BorderThickness="0,1,0,1" />
-            <Label Content="Wine year:" Padding="10" FontStyle="Italic" />
+            <Label Content="Wine year:*" Padding="10" FontStyle="Italic" />
             <TextBox Text="{Binding SelectedFromListbox.Year}" Background="Transparent" Padding="10" BorderThickness="0,1,0,1" />
-            <Label Content="Wine price:" Padding="10" FontStyle="Italic" />
+            <Label Content="Wine price:*" Padding="10" FontStyle="Italic" />
             <TextBox Text="{Binding SelectedFromListbox.Price}" Background="Transparent" Padding="10" BorderThickness="0,1,0,1" />
-            <Label Content="Wines's winery id:" Padding="10" FontStyle="Italic" />
+            <Label Content="Wines's winery id:*" Padding="10" FontStyle="Italic" />
             <TextBox Text="{Binding SelectedFromListbox.WineryId}" Background="Transparent" Padding="10" BorderThickness="0,1,0,1"  />
             <Label Content="Wine type (Rozé/White/Red):" Padding="10" FontStyle="Italic" />
             <TextBox Text="{Binding SelectedFromListbox.Type}" Background="Transparent" Padding="10" BorderThickness="0,1,0,1" Margin="0,0,0,40"/>
