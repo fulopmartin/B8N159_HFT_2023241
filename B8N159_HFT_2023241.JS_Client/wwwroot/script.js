@@ -47,10 +47,6 @@ async function getAwardsData() {
             displayAwards();
         });
 }
-
-function refreshAwardsTable() {
-    getAwardsData();
-}
  
 function displayAwards() {
     document.getElementById('awardresults').innerHTML = '';
@@ -91,6 +87,7 @@ function addAward() {
                 throw new Error(data.title)
             }
         }
+        resetAwardsMenu();
     }).catch(error => {
         console.error(error);
         alert(error.message);
@@ -187,6 +184,7 @@ function updateAward() {
                 throw new Error(data.title)
             }
         }
+        resetAwardsMenu();
     }).catch(error => {
         console.error(error);
         alert(error.message);
@@ -200,5 +198,184 @@ function updateAward() {
 
 
 // #region Wine
+function winesMenu() {
+    document.getElementById('welcomeDiv').style.display = 'none';
+    document.getElementById('awardDiv').style.display = 'none';
+    resetWinesMenu();
 
+    document.getElementById('wineDiv').style.display = 'block';
+    document.getElementById('wineryDiv').style.display = 'none';
+    document.getElementById('staticticsDiv').style.display = 'none';
+
+    getWinesData();
+}
+
+async function getWinesData() {
+    await fetch('http://localhost:5874/wine')
+        .then(x => x.json())
+        .then(y => {
+            wines = y;
+            displayWines();
+        });
+}
+
+function displayWines() {
+    document.getElementById('wineresults').innerHTML = '';
+    wines.forEach(t => {
+        document.getElementById('wineresults').innerHTML +=
+            "<tr><td>" + t.wineId + "</td>" +
+            "<td>" + t.name + "</td>" +
+            "<td>" + t.year + "</td>" +
+            "<td>" + t.price + "</td>" +
+            "<td>" + t.wineryId + "</td>" +
+        `<td><button type="button" onclick=removeWine('${t.wineId}')>Delete</button></td>` +
+        `<td><button type="button" onclick=showupdateMenuWine('${t.wineId}')>Update</button></td></tr>`;
+    });
+    
+}
+
+function addWine() {
+    let winename = document.getElementById('addwinename').value;
+    let wineyear = document.getElementById('addwineyear').value;
+    let wineprice = document.getElementById('addwineprice').value;
+    let wineryid = document.getElementById('addwinewineryid').value;
+
+    fetch('http://localhost:5874/wine', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(
+            {
+                Name: winename,
+                Year: wineyear,
+                WineryId: wineryid,
+                Price: wineprice
+            }
+        )
+    }).then(response => {
+        if (!response.ok) {
+            return response.json();
+        }
+    }).then(data => {
+        if (data != undefined) {
+            console.log(data);
+
+            if (data.msg != undefined) {
+                throw new Error(data.msg);
+            }
+            if (data.status != undefined && data.status != 200) {
+                throw new Error(data.title)
+            }
+        }
+        resetWinesMenu();
+    }).catch(error => {
+        console.error(error);
+        alert(error.message);
+    });
+
+    getWinesData();
+    resetWinesMenu();
+}
+
+function removeWine(id) {
+    fetch('http://localhost:5874/wine/' + id, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: null
+    }).then(response => {
+        if (!response.ok) {
+            return response.json();
+        }
+        else {
+            getWinesData();
+        }
+    }).then(data => {
+        if (data != undefined) {
+            console.log(data);
+            if (data.msg != undefined) {
+                throw new Error(data.msg);
+            }
+            if (data.status != undefined && data.status != 200) {
+                throw new Error(data.title)
+            }
+        }
+    }).catch(error => {
+        console.error(error);
+        alert(error.message);
+    });
+}
+
+function resetWinesMenu() {
+    document.getElementById('addwinename').value = '';
+    document.getElementById('addwineyear').value = '';
+    document.getElementById('addwineprice').value = '';
+    document.getElementById('addwinewineryid').value = '';
+
+    document.getElementById('updatewinename').value = '';
+    document.getElementById('updatewineyear').value = '';
+    document.getElementById('updatewineprice').value = '';
+    document.getElementById('upsatewinewineryid').value = '';
+    wineIdUpdate = -1;
+
+    document.getElementById('wineAddDiv').style.display = 'block';
+    document.getElementById('wineUpdateDiv').style.display = 'none';
+    getWinesData();
+
+}
+
+function showupdateMenuWine(id) {
+    document.getElementById('wineAddDiv').style.display = 'none';
+    document.getElementById('wineUpdateDiv').style.display = 'block';
+
+    let w = wines.find(t => t.wineId == id);
+    wineIdUpdate = id;
+
+    document.getElementById('updatewinename').value = w.name;
+    document.getElementById('updatewineyear').value = w.year;
+    document.getElementById('updatewineprice').value = w.price;
+    document.getElementById('upsatewinewineryid').value = w.wineryId;
+}
+
+function updateWine() {
+    let winenametoupdate = document.getElementById('updatewinename').value;
+    let wineyeartoupdate = document.getElementById('updatewineyear').value;
+    let winepricetoupdate = document.getElementById('updatewineprice').value;
+    let winewineryidtoupdate = document.getElementById('upsatewinewineryid').value;
+
+
+    fetch('http://localhost:5874/wine', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(
+            {
+                WineId: wineIdUpdate,
+                Name: winenametoupdate,
+                Year: wineyeartoupdate,
+                WineryId: winewineryidtoupdate,
+                Price: winepricetoupdate
+            }
+        )
+    }).then(response => {
+        if (!response.ok) {
+            return response.json();
+        }
+    }).then(data => {
+        if (data != undefined) {
+            console.log(data);
+            if (data.msg != undefined) {
+                throw new Error(data.msg);
+            }
+            if (data.status != undefined && data.status != 200) {
+                throw new Error(data.title)
+            }
+        }
+        resetWinesMenu();
+    }).catch(error => {
+        console.error(error);
+        alert(error.message);
+    });
+
+    wineIdUpdate = -1;
+    getWinessData();
+    resetWinesMenu();
+}
 // #endregion

@@ -7,17 +7,29 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.menubarbutton{
+    font-size: 20px;
+    width: 95%;
+}
 
 h1 {
+    padding: 10px;    
+    font-size: 40px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 500;
+    text-align: left;
+    margin-bottom: 0px;    
+}
+
+h2 {
     padding: 10px;
-    
     font-size: 30px;
     color: #fff;
     text-transform: uppercase;
     font-weight: 300;
     text-align: left;
     margin-bottom: 0px;
-    
 }
 
 table {
@@ -25,15 +37,23 @@ table {
     table-layout: auto;
 }
 
+
 .tbl-header {
-    background-color: rgba(255,255,255,0.3);
+    background-color: rgba(255,255,255,0.3); 
+    
+    
+    
 }
 
 .tbl-content {
-    height: auto;
-    overflow-x: auto;
+        
     margin-top: 0px;
     border: 1px solid rgba(255,255,255,0.3);
+    
+    width: 100%;
+    
+    max-height: 500px;
+    overflow: scroll;
 }
 
 

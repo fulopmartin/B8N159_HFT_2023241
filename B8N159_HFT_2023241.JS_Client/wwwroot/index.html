@@ -9,32 +9,31 @@
 
     <div>
         <h1 id="welcome" onclick="mainMenu()">Welcome to the winery database!</h1> <br />
-        
-        <table>          
+
+        <table>
             <tr>
                 <td>
-                    <button type="button" onclick="awardsMenu()">Awards</button>
+                    <button type="button" onclick="awardsMenu()" class="menubarbutton">Awards</button>
                 </td>
                 <td>
-                    <button type="button" onclick="winesMenu()">Wines</button>
+                    <button type="button" onclick="winesMenu()" class="menubarbutton">Wines</button>
                 </td>
                 <td>
-                    <button type="button" onclick="wineriesMenu()">Wineries</button>
+                    <button type="button" onclick="wineriesMenu()" class="menubarbutton">Wineries</button>
                 </td>
                 <td>
-                    <button type="button" onclick="staticticsMenu()">Statistics</button>
+                    <button type="button" onclick="staticticsMenu()" class="menubarbutton">Statistics</button>
                 </td>
             </tr>
         </table>
     </div>
 
     <div id="welcomeDiv">
-        <h1>Please select a table to show!</h1>
+        <h2>Please select a table to show!</h2>
     </div>
 
     <div id="awardDiv">
-        <h1>Award Catalog</h1>
-        <button type="button" onclick="refreshAwardsTable()">Refresh</button>
+        <h2>Award Catalog</h2>
         <table>
             <tr>
                 <td>
@@ -116,6 +115,115 @@
                             <tr>
                                 <td>
                                     <button type="button" onclick="updateAward()">Update award</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="wineDiv">
+        <h2>Wine Catalog</h2>
+        <table>
+            <tr>
+                <td>
+                    <table>
+                        <thead class="tbl-header">
+                            <tr>
+                                <th>WineId</th>
+                                <th>WineName</th>
+                                <th>WineYear</th>
+                                <th>WinePrice</th>
+                                <th>WineryId</th>
+                                <th>Delete</th>
+                                <th>Update</th>
+                            </tr>
+                        </thead>
+                        <tbody id="wineresults" class="tbl-content">
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <div id="wineAddDiv">
+                        <table>
+                            <tr>
+                                <td>
+                                    <label>Wine Name</label>
+                                </td>
+                                <td>
+                                    <input type="text" id="addwinename" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Wine Year</label>
+                                </td>
+                                <td>
+                                    <input type="number" id="addwineyear" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Wine Price</label>
+                                </td>
+                                <td>
+                                    <input type="number" id="addwineprice" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Winery Id</label>
+                                </td>
+                                <td>
+                                    <input type="number" id="addwinewineryid" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" onclick="addWine()">Add wine</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="wineUpdateDiv">
+                        <table>
+                            <tr>
+                                <td>
+                                    <label>Wine Name</label>
+                                </td>
+                                <td>
+                                    <input type="text" id="updatewinename" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Wine Year</label>
+                                </td>
+                                <td>
+                                    <input type="number" id="updatewineyear" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Wine Price</label>
+                                </td>
+                                <td>
+                                    <input type="number" id="updatewineprice" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Winery Id</label>
+                                </td>
+                                <td>
+                                    <input type="number" id="upsatewinewineryid" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" onclick="updateWine()">Update wine</button>
                                 </td>
                             </tr>
                         </table>
