@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Award UI</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <div>
+        <h1 id="welcome" onclick="mainMenu()">Welcome to the winery database!</h1> <br />
+        
+        <table>          
+            <tr>
+                <td>
+                    <button type="button" onclick="awardsMenu()">Awards</button>
+                </td>
+                <td>
+                    <button type="button" onclick="winesMenu()">Wines</button>
+                </td>
+                <td>
+                    <button type="button" onclick="wineriesMenu()">Wineries</button>
+                </td>
+                <td>
+                    <button type="button" onclick="staticticsMenu()">Statistics</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="welcomeDiv">
+        <h1>Please select a table to show!</h1>
+    </div>
+
+    <div id="awardDiv">
+        <h1>Award Catalog</h1>
+        <button type="button" onclick="refreshAwardsTable()">Refresh</button>
+        <table>
+            <tr>
+                <td>
+                    <table>
+                        <thead class="tbl-header">
+                            <tr>
+                                <th>AwardId</th>
+                                <th>AwardName</th>
+                                <th>AwardYear</th>
+                                <th>WineId</th>
+                                <th>Delete</th>
+                                <th>Update</th>
+                            </tr>
+                        </thead>
+                        <tbody id="awardresults" class="tbl-content">
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <div id="awardAddDiv">
+                        <table>
+                            <tr>
+                                <td>
+                                    <label>Award Name</label>
+                                </td>
+                                <td>
+                                    <input type="text" id="addawardname" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Award Year</label>
+                                </td>
+                                <td>
+                                    <input type="number" id="addawardyear" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Wine Id</label>
+                                </td>
+                                <td>
+                                    <input type="number" id="addawardwineid" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" onclick="addAward()">Add award</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="awardUpdateDiv">
+                        <table>
+                            <tr>
+                                <td>
+                                    <label>Award Name</label>
+                                </td>
+                                <td>
+                                    <input type="text" id="updateawardname" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Award Year</label>
+                                </td>
+                                <td>
+                                    <input type="number" id="updateawardyear" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Wine Id</label>
+                                </td>
+                                <td>
+                                    <input type="number" id="updateawardwineid" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" onclick="updateAward()">Update award</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
