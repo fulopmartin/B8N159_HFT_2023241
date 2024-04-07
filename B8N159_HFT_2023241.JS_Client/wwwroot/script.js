@@ -375,7 +375,178 @@ function updateWine() {
     });
 
     wineIdUpdate = -1;
-    getWinessData();
+    getWinesData();
     resetWinesMenu();
+}
+// #endregion
+
+// #region Winery
+function wineriesMenu() {
+    document.getElementById('welcomeDiv').style.display = 'none';
+    document.getElementById('awardDiv').style.display = 'none';
+    resetWineriesMenu();
+
+    document.getElementById('wineDiv').style.display = 'none';
+    document.getElementById('wineryDiv').style.display = 'block';
+    document.getElementById('staticticsDiv').style.display = 'none';
+
+    getWinesData();
+}
+
+async function getWineriesData() {
+    await fetch('http://localhost:5874/winery')
+        .then(x => x.json())
+        .then(y => {
+            wineries = y;
+            displayWineries();
+        });
+}
+
+function displayWineries() {
+    document.getElementById('wineryresults').innerHTML = '';
+    wineries.forEach(t => {
+        document.getElementById('wineryresults').innerHTML +=
+            "<tr><td>" + t.wineryId + "</td>" +
+            "<td>" + t.name + "</td>" +
+            "<td>" + t.zipcode + "</td>" +            
+            `<td><button type="button" onclick=removeWinery('${t.wineryId}')>Delete</button></td>` +
+            `<td><button type="button" onclick=showupdateMenuWinery('${t.wineryId}')>Update</button></td></tr>`;
+    });
+
+}
+
+function addWinery() {
+    let wineryname = document.getElementById('addwineryname').value;
+    let wineryzipcode = document.getElementById('addwineryzipcode').value    
+
+    fetch('http://localhost:5874/winery', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(
+            {
+                Name: wineryname,
+                Zipcode: wineryzipcode
+            }
+        )
+    }).then(response => {
+        if (!response.ok) {
+            return response.json();
+        }
+    }).then(data => {
+        if (data != undefined) {
+            console.log(data);
+
+            if (data.msg != undefined) {
+                throw new Error(data.msg);
+            }
+            if (data.status != undefined && data.status != 200) {
+                throw new Error(data.title)
+            }
+        }
+        resetWineriesMenu();
+    }).catch(error => {
+        console.error(error);
+        alert(error.message);
+    });
+
+    getWineriesData();
+    resetWineriesMenu();
+}
+
+function removeWinery(id) {
+    fetch('http://localhost:5874/winery/' + id, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: null
+    }).then(response => {
+        if (!response.ok) {
+            return response.json();
+        }
+        else {
+            getWineriesData();
+        }
+    }).then(data => {
+        if (data != undefined) {
+            console.log(data);
+            if (data.msg != undefined) {
+                throw new Error(data.msg);
+            }
+            if (data.status != undefined && data.status != 200) {
+                throw new Error(data.title)
+            }
+        }
+    }).catch(error => {
+        console.error(error);
+        alert(error.message);
+    });
+}
+
+function resetWineriesMenu() {
+    document.getElementById('addwineryname').value = '';
+    document.getElementById('addwineryzipcode').value = '';
+    
+
+    document.getElementById('updatewineryname').value = '';
+    document.getElementById('updatewineryzipcode').value = '';
+    
+    wineryIdUpdate = -1;
+
+    document.getElementById('wineryAddDiv').style.display = 'block';
+    document.getElementById('wineryUpdateDiv').style.display = 'none';
+    getWineriesData();
+
+}
+
+function showupdateMenuWinery(id) {
+    document.getElementById('wineryAddDiv').style.display = 'none';
+    document.getElementById('wineryUpdateDiv').style.display = 'block';
+
+    let w = wineries.find(t => t.wineryId == id);
+    wineryIdUpdate = id;
+
+    document.getElementById('updatewineryname').value = w.name;
+    document.getElementById('updatewineryzipcode').value = w.zipcode;
+    
+}
+
+function updateWinery() {
+    let winerynametoupdate = document.getElementById('updatewineryname').value;
+    let wineryzipcodetoupdate = document.getElementById('updatewineryzipcode').value;
+    
+
+
+    fetch('http://localhost:5874/winery', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(
+            {
+                WineryId: wineryIdUpdate,
+                Name: winerynametoupdate,
+                Zipcode: wineryzipcodetoupdate                
+            }
+        )
+    }).then(response => {
+        if (!response.ok) {
+            return response.json();
+        }
+    }).then(data => {
+        if (data != undefined) {
+            console.log(data);
+            if (data.msg != undefined) {
+                throw new Error(data.msg);
+            }
+            if (data.status != undefined && data.status != 200) {
+                throw new Error(data.title)
+            }
+        }
+        resetWineriesMenu();
+    }).catch(error => {
+        console.error(error);
+        alert(error.message);
+    });
+
+    wineryIdUpdate = -1;
+    getWineriesData();
+    resetWineriesMenu();
 }
 // #endregion

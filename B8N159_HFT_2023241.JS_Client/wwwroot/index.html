@@ -233,7 +233,80 @@
         </table>
     </div>
 
-
+    <div id="wineryDiv">
+        <h2>Winery Catalog</h2>
+        <table>
+            <tr>
+                <td>
+                    <table>
+                        <thead class="tbl-header">
+                            <tr>
+                                <th>WineryId</th>
+                                <th>WineryName</th>
+                                <th>WineryZipcode</th>                                
+                                <th>Delete</th>
+                                <th>Update</th>
+                            </tr>
+                        </thead>
+                        <tbody id="wineryresults" class="tbl-content">
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <div id="wineryAddDiv">
+                        <table>
+                            <tr>
+                                <td>
+                                    <label>Winery Name</label>
+                                </td>
+                                <td>
+                                    <input type="text" id="addwineryname" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Winery Zipcode</label>
+                                </td>
+                                <td>
+                                    <input type="number" id="addwineryzipcode" />
+                                </td>
+                            </tr>                            
+                            <tr>
+                                <td>
+                                    <button type="button" onclick="addWinery()">Add winery</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="wineryUpdateDiv">
+                        <table>
+                            <tr>
+                                <td>
+                                    <label>Winery Name</label>
+                                </td>
+                                <td>
+                                    <input type="text" id="updatewineryname" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Wine Year</label>
+                                </td>
+                                <td>
+                                    <input type="number" id="updatewineryzipcode" />
+                                </td>
+                            </tr>                            
+                            <tr>
+                                <td>
+                                    <button type="button" onclick="updateWinery()">Update winery</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
