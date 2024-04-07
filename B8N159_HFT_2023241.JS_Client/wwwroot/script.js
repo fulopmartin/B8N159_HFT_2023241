@@ -8,15 +8,12 @@ let wineIdUpdate = -1;
 let wineryIdUpdate = -1;
 
 
-getAwardsData();
-//getWineData();
-//getWineryData();
 
 document.getElementById('welcomeDiv').style.display = 'block';
 document.getElementById('awardDiv').style.display = 'none';
 document.getElementById('wineDiv').style.display = 'none';
 document.getElementById('wineryDiv').style.display = 'none';
-document.getElementById('staticticsDiv').style.display = 'none';
+document.getElementById('statDiv').style.display = 'none';
 
 
 function mainMenu() {
@@ -24,7 +21,7 @@ function mainMenu() {
     document.getElementById('awardDiv').style.display = 'none';    
     document.getElementById('wineDiv').style.display = 'none';
     document.getElementById('wineryDiv').style.display = 'none';
-    document.getElementById('staticticsDiv').style.display = 'none';   
+    document.getElementById('statDiv').style.display = 'none';   
 }
 
 // #region Award
@@ -35,7 +32,7 @@ function awardsMenu() {
 
     document.getElementById('wineDiv').style.display = 'none';
     document.getElementById('wineryDiv').style.display = 'none';
-    document.getElementById('staticticsDiv').style.display = 'none';
+    document.getElementById('statDiv').style.display = 'none';
 
     getAwardsData();
 }
@@ -205,7 +202,7 @@ function winesMenu() {
 
     document.getElementById('wineDiv').style.display = 'block';
     document.getElementById('wineryDiv').style.display = 'none';
-    document.getElementById('staticticsDiv').style.display = 'none';
+    document.getElementById('statDiv').style.display = 'none';
 
     getWinesData();
 }
@@ -388,7 +385,7 @@ function wineriesMenu() {
 
     document.getElementById('wineDiv').style.display = 'none';
     document.getElementById('wineryDiv').style.display = 'block';
-    document.getElementById('staticticsDiv').style.display = 'none';
+    document.getElementById('statDiv').style.display = 'none';
 
     getWinesData();
 }
@@ -550,3 +547,36 @@ function updateWinery() {
     resetWineriesMenu();
 }
 // #endregion
+
+// #region stat
+
+
+function staticticsMenu() {
+    document.getElementById('welcomeDiv').style.display = 'none';
+    document.getElementById('awardDiv').style.display = 'none';   
+    document.getElementById('wineDiv').style.display = 'none';
+    document.getElementById('wineryDiv').style.display = 'none';
+    document.getElementById('statDiv').style.display = 'block';
+
+    getAveragePriceByWineryStats();
+}
+
+async function getAveragePriceByWineryStats() {
+    await fetch('http://localhost:5874/WineryStat/AveragePriceByWinery')
+        .then(x => x.json())
+        .then(y => {
+            stats = y
+            displayStat();
+        });
+}
+
+function displayStat() {
+    document.getElementById('statresult').innerHTML = '';
+    stats.forEach(t => {
+        document.getElementById('statresult').innerHTML +=
+            "<tr><td>" + t.name + "</td>" +
+            "<td>" + t.avg + "</td></tr>";
+    });
+}
+
+//#endregion
