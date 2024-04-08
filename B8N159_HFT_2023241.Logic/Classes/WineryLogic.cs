@@ -17,7 +17,7 @@ namespace B8N159_HFT_2023241.Logic
 
         public void Create(Winery item)
         {
-            if(item.Name == null || item.Name == "" || item.Zipcode == 0)
+            if(item.Name == null || item.Name == "" || item.Zipcode == 0 || item.Zipcode == null)
             {
                 throw new ArgumentException("Name or zipcode cannot be empty");
             }

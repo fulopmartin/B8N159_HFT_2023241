@@ -2,23 +2,30 @@
 using B8N159_HFT_2023241.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace B8N159_HFT_2023241.Logic
 {
     public class AwardLogic : IAwardLogic
     {
         IRepository<Award> repo;
+        IRepository<Wine> wineRepository;
 
-        public AwardLogic(IRepository<Award> repo)
+        public AwardLogic(IRepository<Award> repo, IRepository<Wine> wineRepository)
         {
             this.repo = repo;
+            this.wineRepository = wineRepository;
         }
 
         public void Create(Award item)
         {
-            if (item.AwardName == null || item.AwardName == "" || item.AwardYear == 0 || item.WineId == 0)
+            if (item.AwardName == null || item.AwardName == "" || item.AwardYear == 0 || item.WineId == 0 || item.WineId == null)
             {
                 throw new ArgumentException("There is an empty field");
+            }
+            if(item.WineId < 1 || item.WineId > wineRepository.ReadAll().Count())
+            {
+                throw new ArgumentException("The wine does not exist!");
             }
             this.repo.Create(item);
         }
@@ -50,9 +57,13 @@ namespace B8N159_HFT_2023241.Logic
 
         public void Update(Award item)
         {
-            if (item.AwardName == null || item.AwardName == "" || item.AwardYear == 0 || item.WineId == 0)
+            if (item.AwardName == null || item.AwardName == "" || item.AwardYear == 0 || item.WineId == 0 || item.WineId == null)
             {
                 throw new ArgumentException("There is an empty field");
+            }
+            if (item.WineId < 1 || item.WineId > wineRepository.ReadAll().Count())
+            {
+                throw new ArgumentException("The wine does not exist!");
             }
             this.repo.Update(item);
         }

@@ -9,19 +9,25 @@ namespace B8N159_HFT_2023241.Logic
     public class WineLogic : IWineLogic
     {
         IRepository<Wine> repo;
+        IRepository<Winery> wineryRepository;
 
-        public WineLogic(IRepository<Wine> repo)
+        public WineLogic(IRepository<Wine> repo, IRepository<Winery> wineryRepository)
         {
             this.repo = repo;
+            this.wineryRepository = wineryRepository;
         }
 
         public void Create(Wine item)
         {
-            if (item.Name == null || item.Name == "" || item.Year == 0 || item.WineryId == 0 || item.Price == 0)
+            if (item.Name == "" || item.Name == null || item.Year == 0 || item.Price == 0 || item.Price == null || item.WineryId == null || item.Year == null)
             {
                 throw new ArgumentException("There is an empty field");
             }
-            
+            if (item.WineryId > wineryRepository.ReadAll().Count() || item.WineryId < 1)
+            {
+                throw new ArgumentException("The winery does not exist!");
+            }
+
             this.repo.Create(item);
         }
 
@@ -58,9 +64,13 @@ namespace B8N159_HFT_2023241.Logic
 
         public void Update(Wine item)
         {
-            if (item.Name == "" || item.Year == 0 || item.WineryId == 0 || item.Price == 0)
+            if (item.Name == "" || item.Name == null || item.Year == 0 || item.Price == 0 || item.Price == null || item.WineryId == null || item.Year == null)
             {
                 throw new ArgumentException("There is an empty field");
+            }
+            if (item.WineryId > wineryRepository.ReadAll().Count() || item.WineryId < 1)
+            {
+                throw new ArgumentException("The winery does not exist!");
             }
             this.repo.Update(item);
         }
