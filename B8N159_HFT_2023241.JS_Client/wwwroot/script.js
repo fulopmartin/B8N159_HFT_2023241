@@ -3,9 +3,46 @@ let wines = [];
 let wineries = [];
 let stats = [];
 
+let connection = null;
+setupSignalR();
+
 let awardIdUpdate = -1;
 let wineIdUpdate = -1;
 let wineryIdUpdate = -1;
+
+
+function setupSignalR() {
+    connection = new signalR.HubConnectionBuilder()
+        .withUrl("http://localhost:5874/hub")
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
+
+    connection.on("AwardCreated", (user, message) => { getAwardsData(); });
+    connection.on("AwardDeleted", (user, message) => { getAwardsData(); });
+    connection.on("AwardUpdated", (user, message) => { getAwardsData(); });
+    connection.on("WineCreated", (user, message) => { getWinesData(); });
+    connection.on("WineDeleted", (user, message) => { getWinesData(); });
+    connection.on("WineUpdated", (user, message) => { getWinesData(); });
+    connection.on("WineryCreated", (user, message) => { getWineriesData(); });
+    connection.on("WineryDeleted", (user, message) => { getWineriesData(); });
+    connection.on("WineryUpdated", (user, message) => { getWineriesData(); });
+
+    connection.onclose(async () => {
+        await start();
+    });
+    start();
+}
+
+async function start() {
+    try {
+        await connection.start();
+        console.log("SignalR Connected.");
+    }
+    catch (err) {
+        console.log(err);
+        setTimeout(start, 5000);
+    }
+};
 
 
 
@@ -17,11 +54,11 @@ document.getElementById('statDiv').style.display = 'none';
 
 
 function mainMenu() {
-    document.getElementById('welcomeDiv').style.display = 'block';    
-    document.getElementById('awardDiv').style.display = 'none';    
+    document.getElementById('welcomeDiv').style.display = 'block';
+    document.getElementById('awardDiv').style.display = 'none';
     document.getElementById('wineDiv').style.display = 'none';
     document.getElementById('wineryDiv').style.display = 'none';
-    document.getElementById('statDiv').style.display = 'none';   
+    document.getElementById('statDiv').style.display = 'none';
 }
 
 // #region Award
@@ -40,11 +77,11 @@ async function getAwardsData() {
     await fetch('http://localhost:5874/award')
         .then(x => x.json())
         .then(y => {
-            awards = y;            
+            awards = y;
             displayAwards();
         });
 }
- 
+
 function displayAwards() {
     document.getElementById('awardresults').innerHTML = '';
     awards.forEach(t => {
@@ -53,8 +90,8 @@ function displayAwards() {
             "<td>" + t.awardName + "</td>" +
             "<td>" + t.awardYear + "</td>" +
             "<td>" + t.wineId + "</td>" +
-        `<td><button type="button" onclick=removeAward('${t.awardId}')>Delete</button></td>` +
-        `<td><button type="button" onclick=showupdateMenu('${t.awardId}')>Update</button></td></tr>`;
+            `<td><button type="button" onclick=removeAward('${t.awardId}')>Delete</button></td>` +
+            `<td><button type="button" onclick=showupdateMenu('${t.awardId}')>Update</button></td></tr>`;
     });
 }
 
@@ -67,7 +104,7 @@ function addAward() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(
-            { awardName: awardname,awardYear: awardyear,wineId:wineid }
+            { awardName: awardname, awardYear: awardyear, wineId: wineid }
         )
     }).then(response => {
         if (!response.ok) {
@@ -76,7 +113,7 @@ function addAward() {
     }).then(data => {
         if (data != undefined) {
             console.log(data);
-            
+
             if (data.msg != undefined) {
                 throw new Error(data.msg);
             }
@@ -91,7 +128,7 @@ function addAward() {
     });
 
     getAwardsData();
-    resetAwardsMenu();    
+    resetAwardsMenu();
 }
 
 function removeAward(id) {
@@ -189,7 +226,7 @@ function updateAward() {
 
     awardIdUpdate = -1;
     getAwardsData();
-    resetAwardsMenu();    
+    resetAwardsMenu();
 }
 //#endregion
 
@@ -225,10 +262,10 @@ function displayWines() {
             "<td>" + t.year + "</td>" +
             "<td>" + t.price + "</td>" +
             "<td>" + t.wineryId + "</td>" +
-        `<td><button type="button" onclick=removeWine('${t.wineId}')>Delete</button></td>` +
-        `<td><button type="button" onclick=showupdateMenuWine('${t.wineId}')>Update</button></td></tr>`;
+            `<td><button type="button" onclick=removeWine('${t.wineId}')>Delete</button></td>` +
+            `<td><button type="button" onclick=showupdateMenuWine('${t.wineId}')>Update</button></td></tr>`;
     });
-    
+
 }
 
 function addWine() {
@@ -405,7 +442,7 @@ function displayWineries() {
         document.getElementById('wineryresults').innerHTML +=
             "<tr><td>" + t.wineryId + "</td>" +
             "<td>" + t.name + "</td>" +
-            "<td>" + t.zipcode + "</td>" +            
+            "<td>" + t.zipcode + "</td>" +
             `<td><button type="button" onclick=removeWinery('${t.wineryId}')>Delete</button></td>` +
             `<td><button type="button" onclick=showupdateMenuWinery('${t.wineryId}')>Update</button></td></tr>`;
     });
@@ -414,7 +451,7 @@ function displayWineries() {
 
 function addWinery() {
     let wineryname = document.getElementById('addwineryname').value;
-    let wineryzipcode = document.getElementById('addwineryzipcode').value    
+    let wineryzipcode = document.getElementById('addwineryzipcode').value
 
     fetch('http://localhost:5874/winery', {
         method: 'POST',
@@ -481,11 +518,11 @@ function removeWinery(id) {
 function resetWineriesMenu() {
     document.getElementById('addwineryname').value = '';
     document.getElementById('addwineryzipcode').value = '';
-    
+
 
     document.getElementById('updatewineryname').value = '';
     document.getElementById('updatewineryzipcode').value = '';
-    
+
     wineryIdUpdate = -1;
 
     document.getElementById('wineryAddDiv').style.display = 'block';
@@ -503,13 +540,13 @@ function showupdateMenuWinery(id) {
 
     document.getElementById('updatewineryname').value = w.name;
     document.getElementById('updatewineryzipcode').value = w.zipcode;
-    
+
 }
 
 function updateWinery() {
     let winerynametoupdate = document.getElementById('updatewineryname').value;
     let wineryzipcodetoupdate = document.getElementById('updatewineryzipcode').value;
-    
+
 
 
     fetch('http://localhost:5874/winery', {
@@ -519,7 +556,7 @@ function updateWinery() {
             {
                 WineryId: wineryIdUpdate,
                 Name: winerynametoupdate,
-                Zipcode: wineryzipcodetoupdate                
+                Zipcode: wineryzipcodetoupdate
             }
         )
     }).then(response => {
@@ -553,7 +590,7 @@ function updateWinery() {
 
 function staticticsMenu() {
     document.getElementById('welcomeDiv').style.display = 'none';
-    document.getElementById('awardDiv').style.display = 'none';   
+    document.getElementById('awardDiv').style.display = 'none';
     document.getElementById('wineDiv').style.display = 'none';
     document.getElementById('wineryDiv').style.display = 'none';
     document.getElementById('statDiv').style.display = 'block';
