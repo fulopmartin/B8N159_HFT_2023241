@@ -37,22 +37,31 @@ table {
     table-layout: auto;
 }
 
-
-.tbl-header {
-    background-color: rgba(255,255,255,0.3);   
+.tbl-fixheader {
+    overflow-y: auto; 
+    height: 500px;
+    
 }
 
-.tbl-content {
-        
+    .tbl-fixheader thead th {
+        position: sticky;
+        top: 0px;
+        background-color: rgba(255,255,255,0.3);
+    }
+    .tbl-fixheader tbody {    
+        border: 1px solid rgba(255,255,255,0.3);
+    }
+
+
+.tbl-statheader {
+    background-color: rgba(255,255,255,0.3);
+}
+.tbl-statcontent {
     margin-top: 0px;
     border: 1px solid rgba(255,255,255,0.3);
-    
-    width: 100%;
-    
-    max-height: 500px;
-    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
-
 
 th {
     padding: 15px 10px;
@@ -95,3 +104,5 @@ button, input {
     button:hover {
         background-color: rgba(255,255,255,0.6);        
     }
+
+

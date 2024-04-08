@@ -607,13 +607,54 @@ async function getAveragePriceByWineryStats() {
         });
 }
 
+//winery
+let xValues = [];
+//avg
+let yValues = [];
+
+let myChart;
+let barColors = "rgba(255,255,255,0.3)";
+
 function displayStat() {
     document.getElementById('statresult').innerHTML = '';
+    xValues = [];
+    yValues = [];
+
     stats.forEach(t => {
         document.getElementById('statresult').innerHTML +=
             "<tr><td>" + t.name + "</td>" +
             "<td>" + t.avg + "</td></tr>";
+
+        xValues.push(t.name);
+        yValues.push(t.avg);
     });
+
+    drawChart();
 }
 
 //#endregion
+
+
+function drawChart() {
+
+
+    myChart = new Chart("AveragePriceByWinery", {
+        type: "bar",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        },
+        options: {
+            legend: { display: false },
+            responsive: true,
+            title: {
+                display: true,
+                title: "Average price by winery"
+            }
+        }
+    });
+}
+
