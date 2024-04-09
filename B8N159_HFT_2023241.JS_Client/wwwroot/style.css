@@ -47,9 +47,13 @@ table {
         position: sticky;
         top: 0px;
         background-color: rgba(255,255,255,0.3);
+
+        width: fit-content;
     }
-    .tbl-fixheader tbody {    
+    .tbl-fixheader tbody {
         border: 1px solid rgba(255,255,255,0.3);
+
+        width: fit-content;
     }
 
 
@@ -65,7 +69,7 @@ table {
 
 th {
     padding: 15px 10px;
-    text-align: left;
+    text-align: center;
     font-weight: 500;
     font-size: 12px;
     color: #fff;
@@ -94,11 +98,10 @@ label {
 button, input {
     background-color: rgba(255,255,255,0.3);
     border: 0px;
-    padding: 10px 30px 10px 30px;
-    margin-left: 10px;
+    padding: 20px;    
     color: #fff;
     font-size: 15px;
-    
+    width: max-content;
 }
 
     button:hover {
