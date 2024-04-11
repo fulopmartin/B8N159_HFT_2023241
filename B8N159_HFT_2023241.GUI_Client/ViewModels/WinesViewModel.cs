@@ -1,5 +1,7 @@
-﻿using B8N159_HFT_2023241.Models;
+﻿using B8N159_HFT_2023241.GUI_Client.Services;
+using B8N159_HFT_2023241.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json.Linq;
 using System;
@@ -17,6 +19,8 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
     public class WinesViewModel : ObservableRecipient
     {
         public RestCollection<Wine> Wines { get; set; }
+
+        private IErrorService _ErrorService = Ioc.Default.GetService<IErrorService>();
 
         public RelayCommand CreateWineCommand { get; set; }
         public RelayCommand UpdateWineCommand { get; set; }
@@ -79,10 +83,11 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                       
+                        _ErrorService.Error(ex.Message);
+                        //MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
                     }
-                    
+
                 });
 
                 DeleteWineCommand = new RelayCommand( async() =>
@@ -93,7 +98,8 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message,"Error",MessageBoxButton.OK,MessageBoxImage.Error);
+                        _ErrorService.Error(ex.Message);
+                        //MessageBox.Show(ex.Message,"Error",MessageBoxButton.OK,MessageBoxImage.Error);
                     }
                 },
                 () =>
@@ -111,7 +117,8 @@ namespace B8N159_HFT_2023241.GUI_Client.ViewModels
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        _ErrorService.Error(ex.Message);
+                        //MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 },
                 () =>
